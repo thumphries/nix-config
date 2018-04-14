@@ -1,19 +1,25 @@
-{ pkgs ? (import <nixpkgs> {}).pkgs }:
+{ nixpkgs ? import <nixpkgs> {} }:
 let
-  themes = pkgs.callPackage ./terminal-themes {};
+  fonts = nixpkgs.pkgs.callPackage ./fonts { };
 
-  termite = pkgs.callPackage ./termite {
+  themes = nixpkgs.pkgs.callPackage ./terminal-themes {};
+
+  termite = nixpkgs.pkgs.callPackage ./termite {
     config = {
       theme = themes.fahrenheit;
+      font-face = fonts.info.profont.profont.face;
+      font-style = fonts.info.profont.profont.styles.regular;
+      font-size = 12;
     };
   };
 in
-  pkgs.buildEnv rec {
+  nixpkgs.pkgs.buildEnv rec {
     name = "nix-config";
 
     meta.priority = 9;
 
     paths = [
       termite
+      fonts.env
     ];
   }

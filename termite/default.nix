@@ -2,6 +2,7 @@
 let
   defaultConfig = {
     font-face = "Monospace";
+    font-style = "Regular";
     font-size = 11;
     allow-bold = true;
     scrollbar = true;
@@ -47,7 +48,7 @@ let
       color15    = ${ cfg.theme.color15 }
 
       [hints]
-      font = ${ cfg.font-face } ${ toString cfg.font-size }
+      font = ${ cfg.font-face } ${ cfg.font-style } ${ toString cfg.font-size }
       foreground = ${ cfg.theme.foreground }
       background = ${ cfg.theme.background }
     '';
