@@ -1,15 +1,17 @@
 { nixpkgs ? import <nixpkgs> {} }:
 let
-  fonts = nixpkgs.pkgs.callPackage ./fonts { };
+  private = nixpkgs.pkgs.callPackage ./private {};
+
+  fonts = nixpkgs.pkgs.callPackage ./fonts { private = private; };
 
   themes = nixpkgs.pkgs.callPackage ./terminal-themes {};
 
   termite = nixpkgs.pkgs.callPackage ./termite {
     config = {
       theme = themes.fahrenheit;
-      font-face = fonts.info.source-code-pro.source-code-pro.face;
-      font-style = fonts.info.source-code-pro.source-code-pro.styles.regular;
-      font-size = 12;
+      font-face = fonts.info.pragmatapro.pragmatapro.face;
+      font-style = fonts.info.pragmatapro.pragmatapro.styles.regular;
+      font-size = 14;
     };
   };
 in
