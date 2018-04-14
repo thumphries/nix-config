@@ -1,0 +1,3 @@
+[submodule "terminal-themes"]
+	path = terminal-themes
+	url = git@github.com:thumphries/nix-terminal-themes
