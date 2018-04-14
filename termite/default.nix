@@ -29,6 +29,22 @@ let
       [colors]
       foreground = ${ cfg.theme.foreground }
       background = ${ cfg.theme.background }
+      color0     = ${ cfg.theme.color0  }
+      color1     = ${ cfg.theme.color1  }
+      color2     = ${ cfg.theme.color2  }
+      color3     = ${ cfg.theme.color3  }
+      color4     = ${ cfg.theme.color4  }
+      color5     = ${ cfg.theme.color5  }
+      color6     = ${ cfg.theme.color6  }
+      color7     = ${ cfg.theme.color7  }
+      color8     = ${ cfg.theme.color8  }
+      color9     = ${ cfg.theme.color9  }
+      color10    = ${ cfg.theme.color10 }
+      color11    = ${ cfg.theme.color11 }
+      color12    = ${ cfg.theme.color12 }
+      color13    = ${ cfg.theme.color13 }
+      color14    = ${ cfg.theme.color14 }
+      color15    = ${ cfg.theme.color15 }
 
       [hints]
       font = ${ cfg.font-face } ${ toString cfg.font-size }
