@@ -7,8 +7,8 @@ let
   termite = nixpkgs.pkgs.callPackage ./termite {
     config = {
       theme = themes.fahrenheit;
-      font-face = fonts.info.profont.profont.face;
-      font-style = fonts.info.profont.profont.styles.regular;
+      font-face = fonts.info.source-code-pro.source-code-pro.face;
+      font-style = fonts.info.source-code-pro.source-code-pro.styles.regular;
       font-size = 12;
     };
   };
