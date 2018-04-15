@@ -1,5 +1,5 @@
 { stdenv, symlinkJoin, writeShellScriptBin
-, compton, setxkbmap, xalternative, xsetroot, xsettingsd }:
+, compton, setxkbmap, xalt, xsetroot, xsettingsd }:
 let
   script = writeShellScriptBin "xinitrc" ''
     set -euo pipefail
@@ -8,7 +8,7 @@ let
     ${setxkbmap}/bin/setxkbmap -option ctrl:nocaps
     ${xsettingsd}/bin/xsettingsd &
     ${compton}/bin/compton -b &
-    xalt
+    ${xalt}/bin/xalt
   '';
 in
   symlinkJoin rec {

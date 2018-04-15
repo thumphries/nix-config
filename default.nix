@@ -17,6 +17,14 @@ let
     };
   };
 
+  xalt = nixpkgs.pkgs.callPackage ./xalt {
+    config = {
+      general = {
+        terminal = ''${termite}/bin/termite'';
+      };
+    };
+  };
+
   yabar = nixpkgs.pkgs.callPackage ./yabar {};
 
   compton = nixpkgs.pkgs.callPackage ./compton {
@@ -29,6 +37,7 @@ let
 
   xinitrc = nixpkgs.pkgs.callPackage ./xinitrc {
     compton = compton;
+    xalt = xalt;
     xsettingsd = xsettingsd;
   };
 in
@@ -41,6 +50,7 @@ in
       fonts.env
       pkgs.screenshot
       termite
+      xalt
       xinitrc
       xsettingsd
       yabar
