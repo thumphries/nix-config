@@ -2,6 +2,8 @@
 let
   private = nixpkgs.pkgs.callPackage ./private {};
 
+  pkgs = nixpkgs.pkgs.callPackage ./pkgs {};
+
   fonts = nixpkgs.pkgs.callPackage ./fonts { private = private; };
 
   themes = nixpkgs.pkgs.callPackage ./terminal-themes {};
@@ -23,5 +25,6 @@ in
     paths = [
       termite
       fonts.env
+      pkgs.screenshot
     ];
   }
