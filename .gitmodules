@@ -7,3 +7,6 @@
 [submodule "pkgs"]
 	path = pkgs
 	url = git@github.com:thumphries/nix-pkgs
+[submodule "xalt/wm"]
+	path = xalt/wm
+	url = git@github.com:thumphries/xalternative
