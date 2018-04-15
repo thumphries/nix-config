@@ -17,7 +17,13 @@ let
     };
   };
 
-  compton = nixpkgs.pkgs.callPackage ./compton {};
+  yabar = nixpkgs.pkgs.callPackage ./yabar {};
+
+  compton = nixpkgs.pkgs.callPackage ./compton {
+    config = {
+      fade-delta = 10;
+    };
+  };
 
   xsettingsd = nixpkgs.pkgs.callPackage ./xsettingsd {};
 
@@ -37,5 +43,6 @@ in
       termite
       xinitrc
       xsettingsd
+      yabar
     ];
   }
