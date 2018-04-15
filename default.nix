@@ -16,6 +16,21 @@ let
       font-size = 14;
     };
   };
+
+  yabar = nixpkgs.pkgs.callPackage ./yabar {};
+
+  compton = nixpkgs.pkgs.callPackage ./compton {
+    config = {
+      fade-delta = 10;
+    };
+  };
+
+  xsettingsd = nixpkgs.pkgs.callPackage ./xsettingsd {};
+
+  xinitrc = nixpkgs.pkgs.callPackage ./xinitrc {
+    compton = compton;
+    xsettingsd = xsettingsd;
+  };
 in
   nixpkgs.pkgs.buildEnv rec {
     name = "nix-config";
@@ -23,8 +38,11 @@ in
     meta.priority = 9;
 
     paths = [
-      termite
       fonts.env
       pkgs.screenshot
+      termite
+      xinitrc
+      xsettingsd
+      yabar
     ];
   }
