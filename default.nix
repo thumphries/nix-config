@@ -16,6 +16,15 @@ let
       font-size = 14;
     };
   };
+
+  compton = nixpkgs.pkgs.callPackage ./compton {};
+
+  xsettingsd = nixpkgs.pkgs.callPackage ./xsettingsd {};
+
+  xinitrc = nixpkgs.pkgs.callPackage ./xinitrc {
+    compton = compton;
+    xsettingsd = xsettingsd;
+  };
 in
   nixpkgs.pkgs.buildEnv rec {
     name = "nix-config";
@@ -23,8 +32,10 @@ in
     meta.priority = 9;
 
     paths = [
-      termite
       fonts.env
       pkgs.screenshot
+      termite
+      xinitrc
+      xsettingsd
     ];
   }
