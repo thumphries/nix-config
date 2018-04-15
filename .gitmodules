@@ -4,3 +4,6 @@
 [submodule "private"]
 	path = private
 	url = git@github.com:thumphries/nix-private
+[submodule "pkgs"]
+	path = pkgs
+	url = git@github.com:thumphries/nix-pkgs
