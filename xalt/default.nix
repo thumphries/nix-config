@@ -2,11 +2,21 @@
 let
   wm = callPackage ./wm {};
 
+  defaultConfig = {
+    general = {
+      terminal = "xterm";
+    };
+  };
+
+  cfg = defaultConfig // config;
+
   config-file = writeTextFile {
     name = "xalt-conf";
     executable = false;
     destination = "/etc/xalt.conf";
     text = ''
+      general:
+        terminal: ${cfg.general.terminal}
     '';
   };
 in
