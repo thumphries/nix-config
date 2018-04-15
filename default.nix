@@ -17,7 +17,13 @@ let
     };
   };
 
-  xalt = nixpkgs.pkgs.callPackage ./xalt {};
+  xalt = nixpkgs.pkgs.callPackage ./xalt {
+    config = {
+      general = {
+        terminal = ''${termite}/bin/termite'';
+      };
+    };
+  };
 
   yabar = nixpkgs.pkgs.callPackage ./yabar {};
 
