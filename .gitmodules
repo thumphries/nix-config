@@ -1,3 +1,6 @@
 [submodule "terminal-themes"]
 	path = terminal-themes
 	url = git@github.com:thumphries/nix-terminal-themes
+[submodule "private"]
+	path = private
+	url = git@github.com:thumphries/nix-private
