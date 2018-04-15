@@ -48,6 +48,7 @@ in
 
     paths = [
       fonts.env
+      pkgs.acpilight
       pkgs.screenshot
       termite
       xalt
