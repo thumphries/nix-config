@@ -21,6 +21,7 @@ let
     config = {
       general = {
         terminal = ''${termite}/bin/termite'';
+        border-width = 1;
       };
     };
   };

@@ -3,11 +3,11 @@
 let
   script = writeShellScriptBin "xinitrc" ''
     set -euo pipefail
-    export XDG_DATA_HOME=$HOME/.nix-profile/share
     ${xsetroot}/bin/xsetroot -cursor_name left_ptr
     ${setxkbmap}/bin/setxkbmap -option ctrl:nocaps
     ${xsettingsd}/bin/xsettingsd &
     ${compton}/bin/compton -b &
+    ${xalt}/bin/xbar &
     ${xalt}/bin/xalt
   '';
 in

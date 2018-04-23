@@ -5,6 +5,7 @@ let
   defaultConfig = {
     general = {
       terminal = "xterm";
+      border-width = 1;
     };
   };
 
@@ -17,6 +18,7 @@ let
     text = ''
       general:
         terminal: ${quote cfg.general.terminal}
+        border-width: ${toString cfg.general.border-width}
     '';
   };
 
@@ -25,7 +27,7 @@ in
   symlinkJoin {
     name = "xalt";
 
-    paths = [ wm ];
+    paths = [ wm config-file ];
 
     buildInputs = [ wm makeWrapper ];
 
