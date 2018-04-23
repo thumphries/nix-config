@@ -9,6 +9,7 @@ let
   themes = nixpkgs.pkgs.callPackage ./terminal-themes {};
 
   termite = nixpkgs.pkgs.callPackage ./termite {
+    themes = themes;
     config = {
       theme = themes.fahrenheit;
       font-face = fonts.info.pragmatapro.pragmatapro.face;
@@ -18,10 +19,17 @@ let
   };
 
   xalt = nixpkgs.pkgs.callPackage ./xalt {
+    themes = themes;
     config = {
       general = {
         terminal = ''${termite}/bin/termite'';
         border-width = 1;
+      };
+      xbar = {
+        theme = themes.fahrenheit;
+        font-face = fonts.info.pragmatapro.pragmatapro.face;
+        font-style = fonts.info.pragmatapro.pragmatapro.styles.regular;
+        font-size = 14;
       };
     };
   };

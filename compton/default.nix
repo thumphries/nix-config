@@ -76,7 +76,7 @@ let
     xrender-sync-fence = false;
   };
 
-  cfg = defaultConfig //  config;
+  cfg = lib.recursiveUpdate defaultConfig config;
 
   config-file = writeTextFile {
     name = "compton-conf";

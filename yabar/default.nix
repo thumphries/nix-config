@@ -5,7 +5,7 @@ let
     font-size = 14;
   };
 
-  cfg = defaultConfig // config;
+  cfg = lib.recursiveUpdate defaultConfig config;
 
   config-file = writeTextFile {
     name = "yabar-conf";

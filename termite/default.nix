@@ -1,4 +1,4 @@
-{ stdenv, makeWrapper, symlinkJoin, writeTextFile, termite, themes, config ? {} }:
+{ stdenv, lib, makeWrapper, symlinkJoin, writeTextFile, termite, themes, config ? {} }:
 let
   defaultConfig = {
     font-face = "Monospace";
@@ -9,10 +9,10 @@ let
     scrollback = 10000;
     audible-bell = true;
     clickable-url = true;
-    theme = themes.Novel;
+    theme = themes.novel;
   };
 
-  cfg = defaultConfig // config;
+  cfg = lib.recursiveUpdate defaultConfig config;
 
   config-file = writeTextFile {
     name = "termite-conf";
