@@ -7,6 +7,10 @@ let
       terminal = "xterm";
       border-width = 1;
     };
+    keymap = [
+      { keybind = "M-r"; command = { restart = {}; }; }
+      { keybind = "M-e"; command = { spawn = "dmenu_run"; }; }
+    ];
     xbar = {
       font-face = "Monospace";
       font-style = "";
@@ -25,8 +29,19 @@ let
       general:
         terminal: ${quote cfg.general.terminal}
         border-width: ${toString cfg.general.border-width}
+
+      keymap:
+      ${keymap cfg.keymap}
     '';
   };
+
+  keymap = keys :
+    lib.concatStringsSep "\n"
+      (builtins.map (k: "  * keybind: " + quote k.keybind + "\n    " + keycmd k.command) keys);
+  keycmd = cmd :
+         if builtins.hasAttr "spawn" cmd then "command: spawn: " + quote cmd.spawn
+    else if builtins.hasAttr "restart" cmd then "command: restart"
+    else builtins.throw "bad xalt command";
 
   xbar-gtk-config = writeTextFile {
     name = "xbar-conf";
