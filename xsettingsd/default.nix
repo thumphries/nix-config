@@ -22,7 +22,7 @@ let
     xft-rgba = "rgb";
   };
 
-  cfg = defaultConfig // config;
+  cfg = lib.recursiveUpdate defaultConfig config;
 
   config-file = writeTextFile {
     name = "xsettingsd-conf";
