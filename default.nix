@@ -8,7 +8,7 @@ let
 
   themes = nixpkgs.pkgs.callPackage ./terminal-themes {};
 
-  theme = themes.ashe;
+  theme = themes.fahrenheit;
 
   termite = nixpkgs.pkgs.callPackage ./termite {
     themes = themes;
