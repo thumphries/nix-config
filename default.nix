@@ -27,6 +27,10 @@ let
         terminal = ''${termite}/bin/termite'';
         border-width = 1;
       };
+      keymap = [
+        { keybind = "M-x w"; command = { spawn = "xmessage \"yay!\""; }; }
+        { keybind = "M-x y"; command = { spawn = ''${termite}/bin/termite''; }; }
+      ];
       xbar = {
         theme = theme;
         font-face = fonts.info.pragmatapro.pragmatapro.face;
