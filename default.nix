@@ -31,6 +31,9 @@ let
         { keybind = "M-x y"; command = { spawn = ''${termite}/bin/termite''; }; }
         { keybind = "M-<XF86MonBrightnessUp>"; command = { spawn = backlightUp; }; }
         { keybind = "M-<XF86MonBrightnessDown>"; command = { spawn = backlightDown; }; }
+        { keybind = "M-<XF86AudioMute>"; command = { spawn = volumeMute; }; }
+        { keybind = "M-<XF86AudioLowerVolume>"; command = { spawn = volumeDown; }; }
+        { keybind = "M-<XF86AudioRaiseVolume>"; command = { spawn = volumeUp; }; }
       ];
       xbar = {
         theme = theme;
@@ -43,6 +46,9 @@ let
 
   backlightUp = ''${pkgs.acpilight}/bin/xbacklight -inc 10'';
   backlightDown = ''${pkgs.acpilight}/bin/xbacklight -dec 10'';
+  volumeUp = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -i 10'';
+  volumeDown = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -d 10'';
+  volumeMute = ''${nixpkgs.pkgs.pamixer}/bin/pamixer --toggle-mute'';
 
   yabar = nixpkgs.pkgs.callPackage ./yabar {};
 
@@ -67,6 +73,7 @@ in
 
     paths = [
       fonts.env
+      nixpkgs.pkgs.pamixer
       pkgs.acpilight
       pkgs.screenshot
       termite
