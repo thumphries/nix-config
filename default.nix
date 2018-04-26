@@ -28,7 +28,6 @@ let
         border-width = 1;
       };
       keymap = [
-        { keybind = "M-x y"; command = { spawn = ''${termite}/bin/termite''; }; }
         { keybind = "M-<XF86MonBrightnessUp>"; command = { spawn = backlightUp; }; }
         { keybind = "M-<XF86MonBrightnessDown>"; command = { spawn = backlightDown; }; }
         { keybind = "M-<XF86AudioMute>"; command = { spawn = volumeMute; }; }
