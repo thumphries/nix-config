@@ -28,8 +28,9 @@ let
         border-width = 1;
       };
       keymap = [
-        { keybind = "M-x w"; command = { spawn = "xmessage \"yay!\""; }; }
         { keybind = "M-x y"; command = { spawn = ''${termite}/bin/termite''; }; }
+        { keybind = "M-<XF86MonBrightnessUp>"; command = { spawn = backlightUp; }; }
+        { keybind = "M-<XF86MonBrightnessDown>"; command = { spawn = backlightDown; }; }
       ];
       xbar = {
         theme = theme;
@@ -39,6 +40,9 @@ let
       };
     };
   };
+
+  backlightUp = ''${pkgs.acpilight}/bin/xbacklight -inc 10'';
+  backlightDown = ''${pkgs.acpilight}/bin/xbacklight -dec 10'';
 
   yabar = nixpkgs.pkgs.callPackage ./yabar {};
 
