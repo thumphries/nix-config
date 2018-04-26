@@ -8,10 +8,12 @@ let
 
   themes = nixpkgs.pkgs.callPackage ./terminal-themes {};
 
+  theme = themes.ashe;
+
   termite = nixpkgs.pkgs.callPackage ./termite {
     themes = themes;
     config = {
-      theme = themes.fahrenheit;
+      theme = theme;
       font-face = fonts.info.pragmatapro.pragmatapro.face;
       font-style = fonts.info.pragmatapro.pragmatapro.styles.regular;
       font-size = 14;
@@ -26,7 +28,7 @@ let
         border-width = 1;
       };
       xbar = {
-        theme = themes.fahrenheit;
+        theme = theme;
         font-face = fonts.info.pragmatapro.pragmatapro.face;
         font-style = fonts.info.pragmatapro.pragmatapro.styles.regular;
         font-size = 14;
