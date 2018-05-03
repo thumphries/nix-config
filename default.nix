@@ -33,6 +33,7 @@ let
         { keybind = "M-<XF86AudioMute>"; command = { spawn = volumeMute; }; }
         { keybind = "M-<XF86AudioLowerVolume>"; command = { spawn = volumeDown; }; }
         { keybind = "M-<XF86AudioRaiseVolume>"; command = { spawn = volumeUp; }; }
+        { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
       ];
       xbar = {
         theme = theme;
@@ -48,6 +49,7 @@ let
   volumeUp = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -i 10'';
   volumeDown = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -d 10'';
   volumeMute = ''${nixpkgs.pkgs.pamixer}/bin/pamixer --toggle-mute'';
+  screenshotSel = ''${pkgs.screenshot}/bin/screenshot'';
 
   yabar = nixpkgs.pkgs.callPackage ./yabar {};
 
