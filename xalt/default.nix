@@ -11,6 +11,10 @@ let
       { keybind = "M-r"; command = { restart = {}; }; }
       { keybind = "M-e"; command = { spawn = "dmenu_run"; }; }
     ];
+    rules = [
+      { selector = { role = "floating"; };
+        action = { rect = { x = 0.1; y = 0.0; w = 1.0; h = 0.2; }; }; }
+    ];
     xbar = {
       font-face = "Monospace";
       font-style = "";
@@ -32,6 +36,9 @@ let
 
       keymap:
       ${keymap cfg.keymap}
+
+      rules:
+      ${rules cfg.rules}
     '';
   };
 
@@ -42,6 +49,21 @@ let
          if builtins.hasAttr "spawn" cmd then "command: spawn: " + quote cmd.spawn
     else if builtins.hasAttr "restart" cmd then "command: restart"
     else builtins.throw "bad xalt command";
+
+  rules = rls :
+    lib.concatStringsSep "\n"
+      (builtins.map (s: "  * selector: " + selector s.selector
+                    + "\n    action: " + action s.action) rls);
+  selector = sel :
+         if builtins.hasAttr "role" sel then "role: " + quote sel.role
+    else builtins.throw "bad xalt selector";
+
+  action = act :
+         if builtins.hasAttr "rect" act then "rect: " + rect act.rect
+    else builtins.throw "bad xalt action";
+
+  rect = rect :
+    ''{ x: ${toString rect.x}, y: ${toString rect.y}, w: ${toString rect.w}, h: ${toString rect.h} }'';
 
   xbar-gtk-config = writeTextFile {
     name = "xbar-conf";

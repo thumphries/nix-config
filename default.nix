@@ -34,6 +34,10 @@ let
         { keybind = "M-<XF86AudioLowerVolume>"; command = { spawn = volumeDown; }; }
         { keybind = "M-<XF86AudioRaiseVolume>"; command = { spawn = volumeUp; }; }
         { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
+        { keybind = "M-o"; command = { spawn = promptCmd; }; }
+      ];
+      rules = [
+        { selector = { role = promptRole; }; action = { rect = promptRect; }; }
       ];
       xbar = {
         theme = theme;
@@ -50,6 +54,15 @@ let
   volumeDown = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -d 10'';
   volumeMute = ''${nixpkgs.pkgs.pamixer}/bin/pamixer --toggle-mute'';
   screenshotSel = ''${pkgs.screenshot}/bin/screenshot'';
+
+  promptCmd = ''${termite}/bin/termite --role=${promptRole}'';
+  promptRole = "prompt";
+  promptRect = {
+    x = 0.5;
+    y = 0.5;
+    w = 0.5;
+    h = 0.5;
+  };
 
   yabar = nixpkgs.pkgs.callPackage ./yabar {};
 
@@ -74,6 +87,7 @@ in
 
     paths = [
       fonts.env
+      nixpkgs.pkgs.fzf
       nixpkgs.pkgs.pamixer
       pkgs.acpilight
       pkgs.screenshot
