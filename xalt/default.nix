@@ -56,6 +56,8 @@ let
                     + "\n    action: " + action s.action) rls);
   selector = sel :
          if builtins.hasAttr "role" sel then "role: " + quote sel.role
+    else if builtins.hasAttr "name" sel then "name: " + quote sel.name
+    else if builtins.hasAttr "class" sel then "class: " + quote sel.class
     else builtins.throw "bad xalt selector";
 
   action = act :
