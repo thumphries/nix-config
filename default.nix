@@ -37,7 +37,7 @@ let
         { keybind = "M-o"; command = { spawn = promptCmd; }; }
       ];
       rules = [
-        { selector = { name = promptName; }; action = { rect = promptRect; }; }
+        { selector = { class = promptClass; }; action = { rect = promptRect; }; }
       ];
       xbar = {
         theme = theme;
@@ -55,13 +55,13 @@ let
   volumeMute = ''${nixpkgs.pkgs.pamixer}/bin/pamixer --toggle-mute'';
   screenshotSel = ''${pkgs.screenshot}/bin/screenshot'';
 
-  promptCmd = ''${termite}/bin/termite --name=${promptName}'';
-  promptName = "fzmenu";
+  promptCmd = ''${termite}/bin/termite --class=${promptClass}'';
+  promptClass = "fzmenu";
   promptRect = {
-    x = 0.5;
-    y = 0.5;
-    w = 0.5;
-    h = 0.5;
+    x = 0.0;
+    y = 0.0;
+    w = 1.0;
+    h = 0.2;
   };
 
   yabar = nixpkgs.pkgs.callPackage ./yabar {};
