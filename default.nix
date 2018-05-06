@@ -55,7 +55,9 @@ let
   volumeMute = ''${nixpkgs.pkgs.pamixer}/bin/pamixer --toggle-mute'';
   screenshotSel = ''${pkgs.screenshot}/bin/screenshot'';
 
-  promptCmd = ''${termite}/bin/termite --class=${promptClass}'';
+  promptCmd = ''
+    ${termite}/bin/termite --class=${promptClass} -e "sh -c ${fzmenu}/bin/fzmenu_run"
+  '';
   promptClass = "fzmenu";
   promptRect = {
     x = 0.0;
@@ -63,6 +65,8 @@ let
     w = 1.0;
     h = 0.2;
   };
+
+  fzmenu = nixpkgs.pkgs.callPackage ./fzmenu {};
 
   yabar = nixpkgs.pkgs.callPackage ./yabar {};
 
@@ -87,7 +91,7 @@ in
 
     paths = [
       fonts.env
-      nixpkgs.pkgs.fzf
+      fzmenu
       nixpkgs.pkgs.pamixer
       pkgs.acpilight
       pkgs.screenshot
