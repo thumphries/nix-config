@@ -90,6 +90,7 @@ in
     paths = [
       fonts.env
       fzmenu
+      nixpkgs.pkgs.fzf
       nixpkgs.pkgs.pamixer
       pkgs.acpilight
       pkgs.screenshot
