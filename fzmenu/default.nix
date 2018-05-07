@@ -6,7 +6,7 @@ let
     destination = "/bin/fzmenu";
     text = ''
       #!/bin/sh
-      ${fzf}/bin/fzf --reverse --inline-info
+      ${fzf}/bin/fzf --reverse "$@"
     '';
   };
 
@@ -27,8 +27,8 @@ let
     text = ''
       #!/bin/sh
       ${fzmenu-path}/bin/fzmenu_path \
-        | ${fzmenu}/bin/fzmenu \
-        | /bin/sh
+        | ${fzmenu}/bin/fzmenu --preview="man {}" \
+        | (/bin/sh &)
     '';
   };
 in

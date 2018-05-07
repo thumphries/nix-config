@@ -55,9 +55,7 @@ let
   volumeMute = ''${nixpkgs.pkgs.pamixer}/bin/pamixer --toggle-mute'';
   screenshotSel = ''${pkgs.screenshot}/bin/screenshot'';
 
-  promptCmd = ''
-    ${termite}/bin/termite --class=${promptClass} -e "sh -c ${fzmenu}/bin/fzmenu_run"
-  '';
+  promptCmd = ''${termite}/bin/termite --class=${promptClass} -e "sh -c ${fzmenu}/bin/fzmenu_run"'';
   promptClass = "fzmenu";
   promptRect = {
     x = 0.0;
