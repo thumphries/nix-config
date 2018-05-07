@@ -27,7 +27,7 @@ let
     text = ''
       #!/bin/sh
       ${fzmenu-path}/bin/fzmenu_path \
-        | ${fzmenu}/bin/fzmenu --preview="man {}" \
+        | ${fzmenu}/bin/fzmenu --preview="man {}" --prompt="Run> " \
         | (/bin/sh &)
     '';
   };
