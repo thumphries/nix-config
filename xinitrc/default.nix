@@ -1,5 +1,5 @@
 { stdenv, symlinkJoin, writeShellScriptBin
-, compton, setxkbmap, xalt, xsetroot, xsettingsd }:
+, compton, networkmanagerapplet, setxkbmap, xalt, xsetroot, xsettingsd }:
 let
   script = writeShellScriptBin "xinitrc" ''
     set -euo pipefail
@@ -7,6 +7,7 @@ let
     ${setxkbmap}/bin/setxkbmap -option ctrl:nocaps
     ${xsettingsd}/bin/xsettingsd &
     ${compton}/bin/compton -b &
+    ${networkmanagerapplet}/bin/nm-applet &
     ${xalt}/bin/xbar &
     ${xalt}/bin/xalt
   '';

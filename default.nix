@@ -91,6 +91,7 @@ in
       fonts.env
       fzmenu
       nixpkgs.pkgs.fzf
+      nixpkgs.pkgs.networkmanagerapplet
       nixpkgs.pkgs.pamixer
       pkgs.acpilight
       pkgs.screenshot
