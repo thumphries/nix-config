@@ -8,7 +8,7 @@ let
       border-width = 1;
     };
     keymap = [
-      { keybind = "M-r"; command = { restart = {}; }; }
+      { keybind = "M-S-r"; command = { restart = {}; }; }
       { keybind = "M-e"; command = { spawn = "dmenu_run"; }; }
     ];
     rules = [
@@ -48,6 +48,7 @@ let
   keycmd = cmd :
          if builtins.hasAttr "spawn" cmd then "command: spawn: " + quote cmd.spawn
     else if builtins.hasAttr "restart" cmd then "command: restart"
+    else if builtins.hasAttr "promote" cmd then "command: promote"
     else builtins.throw "bad xalt command";
 
   rules = rls :

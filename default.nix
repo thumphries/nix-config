@@ -28,11 +28,12 @@ let
         border-width = 1;
       };
       keymap = [
-        { keybind = "M-<XF86MonBrightnessUp>"; command = { spawn = backlightUp; }; }
-        { keybind = "M-<XF86MonBrightnessDown>"; command = { spawn = backlightDown; }; }
-        { keybind = "M-<XF86AudioMute>"; command = { spawn = volumeMute; }; }
-        { keybind = "M-<XF86AudioLowerVolume>"; command = { spawn = volumeDown; }; }
-        { keybind = "M-<XF86AudioRaiseVolume>"; command = { spawn = volumeUp; }; }
+        { keybind = "<XF86MonBrightnessUp>"; command = { spawn = backlightUp; }; }
+        { keybind = "<XF86MonBrightnessDown>"; command = { spawn = backlightDown; }; }
+        { keybind = "<XF86AudioMute>"; command = { spawn = volumeMute; }; }
+        { keybind = "<XF86AudioLowerVolume>"; command = { spawn = volumeDown; }; }
+        { keybind = "<XF86AudioRaiseVolume>"; command = { spawn = volumeUp; }; }
+        { keybind = "M-<Return>"; command = { promote = {}; }; }
         { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
         { keybind = "M-o"; command = { spawn = promptCmd; }; }
       ];
