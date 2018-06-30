@@ -1,5 +1,15 @@
-{ nixpkgs ? import <nixpkgs> {} }:
 let
+  nixpkgs =
+    let
+      path = ./. + "/nixpkgs.json";
+      json = builtins.fromJSON (builtins.readFile path);
+    in
+      import ((import <nixpkgs> { }).fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        inherit (json) rev sha256;
+      }) { config = { }; };
+
   private = nixpkgs.pkgs.callPackage ./private {};
 
   pkgs = nixpkgs.pkgs.callPackage ./pkgs {};
@@ -25,7 +35,7 @@ let
     config = {
       general = {
         terminal = ''${termite}/bin/termite'';
-        border-width = 1;
+        border-width = 2;
       };
       keymap = [
         { keybind = "<XF86MonBrightnessUp>"; command = { spawn = backlightUp; }; }
@@ -33,6 +43,7 @@ let
         { keybind = "<XF86AudioMute>"; command = { spawn = volumeMute; }; }
         { keybind = "<XF86AudioLowerVolume>"; command = { spawn = volumeDown; }; }
         { keybind = "<XF86AudioRaiseVolume>"; command = { spawn = volumeUp; }; }
+        { keybind = "M-S-r"; command = { restart = {}; }; }
         { keybind = "M-<Return>"; command = { promote = {}; }; }
         { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
         { keybind = "M-o"; command = { spawn = promptCmd; }; }
