@@ -54,8 +54,8 @@ let
       ];
       xbar = {
         theme = theme;
-        font-face = fonts.info.pragmatapro.pragmatapro.face;
-        font-style = fonts.info.pragmatapro.pragmatapro.styles.regular;
+        font-face = fonts.info.source-sans-pro.source-sans-pro.face;
+        font-style = fonts.info.source-sans-pro.source-sans-pro.styles.regular;
         font-size = 14;
       };
     };
