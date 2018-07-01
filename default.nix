@@ -31,6 +31,7 @@ let
   };
 
   xalt = nixpkgs.pkgs.callPackage ./xalt {
+    nixpkgs = nixpkgs;
     themes = themes;
     config = {
       general = {
