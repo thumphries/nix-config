@@ -8,7 +8,7 @@ let
     ${xsettingsd}/bin/xsettingsd &
     ${compton}/bin/compton -b &
     ${networkmanagerapplet}/bin/nm-applet &
-    ${xalt}/bin/xbar &
+    dbus-launch ${xalt}/bin/xbar &
     ${xalt}/bin/xalt
   '';
 in
