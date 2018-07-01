@@ -1,6 +1,6 @@
-{ stdenv, lib, callPackage, makeWrapper, symlinkJoin, writeTextFile, themes, config ? {} }:
+{ nixpkgs, stdenv, lib, callPackage, makeWrapper, symlinkJoin, writeTextFile, themes, config ? {} }:
 let
-  wm = callPackage ./wm {};
+  wm = callPackage ./wm { nixpkgs = nixpkgs; };
 
   defaultConfig = {
     general = {
@@ -8,8 +8,12 @@ let
       border-width = 1;
     };
     keymap = [
-      { keybind = "M-r"; command = { restart = {}; }; }
+      { keybind = "M-S-r"; command = { restart = {}; }; }
       { keybind = "M-e"; command = { spawn = "dmenu_run"; }; }
+    ];
+    rules = [
+      { selector = { role = "floating"; };
+        action = { rect = { x = 0.1; y = 0.0; w = 1.0; h = 0.2; }; }; }
     ];
     xbar = {
       font-face = "Monospace";
@@ -32,6 +36,9 @@ let
 
       keymap:
       ${keymap cfg.keymap}
+
+      rules:
+      ${rules cfg.rules}
     '';
   };
 
@@ -41,36 +48,77 @@ let
   keycmd = cmd :
          if builtins.hasAttr "spawn" cmd then "command: spawn: " + quote cmd.spawn
     else if builtins.hasAttr "restart" cmd then "command: restart"
+    else if builtins.hasAttr "promote" cmd then "command: promote"
     else builtins.throw "bad xalt command";
 
-  xbar-gtk-config = writeTextFile {
-    name = "xbar-conf";
+  rules = rls :
+    lib.concatStringsSep "\n"
+      (builtins.map (s: "  * selector: " + selector s.selector
+                    + "\n    action: " + action s.action) rls);
+  selector = sel :
+         if builtins.hasAttr "role" sel then "role: " + quote sel.role
+    else if builtins.hasAttr "name" sel then "name: " + quote sel.name
+    else if builtins.hasAttr "class" sel then "class: " + quote sel.class
+    else builtins.throw "bad xalt selector";
+
+  action = act :
+         if builtins.hasAttr "rect" act then "rect: " + rect act.rect
+    else builtins.throw "bad xalt action";
+
+  rect = rect :
+    ''{ x: ${toString rect.x}, y: ${toString rect.y}, w: ${toString rect.w}, h: ${toString rect.h} }'';
+
+  xbar-css-config = writeTextFile {
+    name = "xbar-css";
     executable = false;
-    destination = "/etc/taffybar/taffybar.rc";
+    destination = "/etc/taffybar/taffybar.css";
     text = ''
-      gtk_color_scheme = "black:${cfg.xbar.theme.background}\nwhite:${cfg.xbar.theme.foreground}\ngreen:${cfg.xbar.theme.color2}\nred:${cfg.xbar.theme.color1}"
+      @define-color transparent rgba(0.0, 0.0, 0.0, 0.0);
+      @define-color bg ${cfg.xbar.theme.background};
+      @define-color fg ${cfg.xbar.theme.foreground};
+      @define-color black ${cfg.xbar.theme.color0};
+      @define-color red ${cfg.xbar.theme.color1};
+      @define-color green ${cfg.xbar.theme.color2};
+      @define-color yellow ${cfg.xbar.theme.color3};
+      @define-color blue ${cfg.xbar.theme.color4};
+      @define-color magenta ${cfg.xbar.theme.color5};
+      @define-color cyan ${cfg.xbar.theme.color6};
+      @define-color white ${cfg.xbar.theme.color7};
 
-      style "xbar" {
-        font_name    = "${cfg.xbar.font-face} ${cfg.xbar.font-style} ${toString cfg.xbar.font-size}"
-        bg[NORMAL]   = @black
-        fg[NORMAL]   = @white
-        text[NORMAL] = @white
-        fg[PRELIGHT] = @green
-        bg[PRELIGHT] = @black
+      @define-color taffy-blue @blue;
+
+      @define-color active-window-color @white;
+      @define-color urgent-window-color @taffy-blue;
+      @define-color font-color @white;
+      @define-color menu-background-color @white;
+      @define-color menu-font-color @black;
+
+      /* Top-level bar config */
+      .taffy-window * {
+        font-family: "${cfg.xbar.font-face}";
+        font-size: ${toString cfg.xbar.font-size}pt;
+        color: @fg;
       }
 
-      style "active-window" = "xbar" {
-        fg[NORMAL] = @green
+      .taffy-box {
+        border-radius: 10px;
+        background-color: @bg;
       }
 
-      style "notification-button" = "xbar" {
-        text[NORMAL] = @red
-        fg[NORMAL]   = @red
+      /* Workspaces styling */
+
+      .workspace-label {
+        padding-right: 3px;
+        padding-left: 2px;
       }
 
-      widget "Taffybar*" style "xbar"
-      widget "Taffybar*WindowSwitcher*label" style "active-window"
-      widget "*NotificationCloseButton" style "notification-button"
+      .active {
+        color: @yellow;
+      }
+
+      .empty {
+        opacity: 0.5;
+      }
     '';
   };
 
@@ -79,7 +127,7 @@ in
   symlinkJoin {
     name = "xalt";
 
-    paths = [ wm config-file xbar-gtk-config ];
+    paths = [ wm config-file xbar-css-config ];
 
     buildInputs = [ wm makeWrapper ];
 
