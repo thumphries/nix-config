@@ -6,6 +6,8 @@ let
     general = {
       terminal = "xterm";
       border-width = 1;
+      border-color = "#000000";
+      border-color-focused = "#FEFEFE";
     };
     keymap = [
       { keybind = "M-S-r"; command = { restart = {}; }; }
@@ -33,6 +35,8 @@ let
       general:
         terminal: ${quote cfg.general.terminal}
         border-width: ${toString cfg.general.border-width}
+        border-color: ${quote cfg.general.border-color}
+        border-color-focused: ${quote cfg.general.border-color-focused}
 
       keymap:
       ${keymap cfg.keymap}
@@ -101,15 +105,15 @@ let
       }
 
       .taffy-box {
-        border-radius: 10px;
+        border-radius: 0px;
         background-color: @bg;
       }
 
       /* Workspaces styling */
 
       .workspace-label {
-        padding-right: 3px;
-        padding-left: 2px;
+        padding-right: 6px;
+        padding-left: 4px;
       }
 
       .active {
