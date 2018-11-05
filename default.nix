@@ -18,7 +18,7 @@ let
 
   themes = nixpkgs.pkgs.callPackage ./terminal-themes {};
 
-  theme = themes.fahrenheit;
+  theme = themes.ashe;
 
   termite = nixpkgs.pkgs.callPackage ./termite {
     themes = themes;
@@ -37,6 +37,8 @@ let
       general = {
         terminal = ''${termite}/bin/termite'';
         border-width = 2;
+        border-color = ''${theme.foreground}'';
+        border-color-focused = ''${theme.color4}'';
       };
       keymap = [
         { keybind = "<XF86MonBrightnessUp>"; command = { spawn = backlightUp; }; }
@@ -79,8 +81,6 @@ let
 
   fzmenu = nixpkgs.pkgs.callPackage ./fzmenu {};
 
-  yabar = nixpkgs.pkgs.callPackage ./yabar {};
-
   compton = nixpkgs.pkgs.callPackage ./compton {
     config = {
       fade-delta = 10;
@@ -112,6 +112,5 @@ in
       xalt
       xinitrc
       xsettingsd
-      yabar
     ];
   }
