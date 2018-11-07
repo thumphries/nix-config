@@ -1,20 +1,25 @@
 { stdenv, symlinkJoin, writeShellScriptBin
 , compton, setxkbmap, xalt, xsetroot, xsettingsd }:
 let
-  script = writeShellScriptBin "xinitrc" ''
+  script = writeShellScriptBin "session" ''
     set -euo pipefail
     ${xsetroot}/bin/xsetroot -cursor_name left_ptr
     ${setxkbmap}/bin/setxkbmap -option ctrl:nocaps
     ${xsettingsd}/bin/xsettingsd &
     ${compton}/bin/compton -b &
-    dbus-launch ${xalt}/bin/xbar &
+    ${xalt}/bin/xbar &
     ${xalt}/bin/xalt
+  '';
+
+  init = writeShellScriptBin "xinitrc" ''
+    set -euo pipefail
+    dbus-launch ${script}/bin/session
   '';
 in
   symlinkJoin rec {
     name = "xinitrc";
 
-    paths = [ script ];
+    paths = [ init ];
 
     buildInputs = [ ];
 
