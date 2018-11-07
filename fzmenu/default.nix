@@ -28,7 +28,7 @@ let
       #!/bin/sh
       ${fzmenu-path}/bin/fzmenu_path \
         | ${fzmenu}/bin/fzmenu --preview="man {}" --prompt="Run> " \
-        | (/bin/sh &)
+        | (nohup /bin/sh >/dev/null 2>&1 &)
     '';
   };
 in
