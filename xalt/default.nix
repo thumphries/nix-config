@@ -127,8 +127,8 @@ let
   };
 
   quote = s : "\"" + lib.escape ["\""] s + "\"";
-in
-  symlinkJoin {
+
+  result = symlinkJoin rec {
     name = "xalt";
 
     paths = [ wm config-file xbar-css-config ];
@@ -141,4 +141,6 @@ in
       wrapProgram $out/bin/xbar \
         --set XDG_CONFIG_HOME "$out/etc"
     '';
-  }
+  };
+in
+  result

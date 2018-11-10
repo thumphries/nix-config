@@ -91,7 +91,19 @@ let
 
   services = nixpkgs.pkgs.symlinkJoin rec {
       name = "services";
-      paths = [ ];
+      paths =
+        let
+          xbar-svc = nixpkgs.pkgs.writeTextFile {
+            name = "xbar";
+            executable = true;
+            destination = "/svc/xbar/run";
+            text = ''
+              #!/bin/sh -eux
+              exec ${xalt}/bin/xbar
+            '';
+          };
+        in
+          [ xbar-svc ];
       buildInputs = [ ];
       meta = {
         description = "Collection of service units";
