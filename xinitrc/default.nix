@@ -1,5 +1,5 @@
 { stdenv, symlinkJoin, writeShellScriptBin
-, compton, setxkbmap, xalt, xsetroot, xsettingsd }:
+, compton, svcinit, setxkbmap, xalt, xsetroot, xsettingsd }:
 let
   script = writeShellScriptBin "session" ''
     set -euo pipefail
@@ -8,7 +8,8 @@ let
     ${xsettingsd}/bin/xsettingsd &
     ${compton}/bin/compton -b &
     ${xalt}/bin/xbar &
-    ${xalt}/bin/xalt
+    ${svcinit}/bin/svcinit &
+    exec ${xalt}/bin/xalt
   '';
 
   init = writeShellScriptBin "xinitrc" ''

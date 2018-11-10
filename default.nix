@@ -89,8 +89,23 @@ let
 
   xsettingsd = nixpkgs.pkgs.callPackage ./xsettingsd {};
 
+  services = nixpkgs.pkgs.symlinkJoin rec {
+      name = "services";
+      paths = [ ];
+      buildInputs = [ ];
+      meta = {
+        description = "Collection of service units";
+        license = nixpkgs.pkgs.stdenv.lib.licenses.bsd3;
+      };
+    };
+
+  svcinit = nixpkgs.pkgs.callPackage ./svc {
+    services = services;
+  };
+
   xinitrc = nixpkgs.pkgs.callPackage ./xinitrc {
     compton = compton;
+    svcinit = svcinit;
     xalt = xalt;
     xsettingsd = xsettingsd;
   };
@@ -108,6 +123,7 @@ in
       nixpkgs.pkgs.pamixer
       pkgs.acpilight
       pkgs.screenshot
+      svcinit
       termite
       xalt
       xinitrc
