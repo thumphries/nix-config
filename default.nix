@@ -102,8 +102,29 @@ let
               exec ${xalt}/bin/xbar
             '';
           };
+
+          # TODO This should be in a separate persistent service set
+          ssh-svc = nixpkgs.pkgs.writeTextFile {
+            name = "ssh-agent";
+            executable = true;
+            destination = "/svc/ssh-agent/run";
+            text = ''
+              #!/bin/sh -eux
+              exec ssh-agent -D
+            '';
+          };
+
+          emacs-svc = nixpkgs.pkgs.writeTextFile {
+            name = "emacs-daemon";
+            executable = true;
+            destination = "/svc/emacs/run";
+            text = ''
+              #!/bin/sh -eux
+              exec fghack emacs --daemon
+            '';
+          };
         in
-          [ xbar-svc ];
+          [ xbar-svc ssh-svc emacs-svc ];
       buildInputs = [ ];
       meta = {
         description = "Collection of service units";
@@ -130,6 +151,7 @@ in
     paths = [
       fonts.env
       fzmenu
+      nixpkgs.pkgs.emacs
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.networkmanagerapplet
       nixpkgs.pkgs.pamixer
