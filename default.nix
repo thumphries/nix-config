@@ -98,7 +98,7 @@ let
             executable = true;
             destination = "/svc/xbar/run";
             text = ''
-              #!/bin/sh -eux
+              #!/bin/sh -eu
               exec ${xalt}/bin/xbar
             '';
           };
@@ -109,22 +109,49 @@ let
             executable = true;
             destination = "/svc/ssh-agent/run";
             text = ''
-              #!/bin/sh -eux
+              #!/bin/sh -eu
               exec ssh-agent -D
             '';
           };
 
+          # TODO Same here - not an X service
           emacs-svc = nixpkgs.pkgs.writeTextFile {
             name = "emacs-daemon";
             executable = true;
             destination = "/svc/emacs/run";
             text = ''
-              #!/bin/sh -eux
+              #!/bin/sh -eu
               exec fghack emacs --daemon
             '';
           };
-        in
-          [ xbar-svc ssh-svc emacs-svc ];
+
+          compton-svc = nixpkgs.pkgs.writeTextFile {
+            name = "compton-svc";
+            executable = true;
+            destination = "/svc/compton/run";
+            text = ''
+              #!/bin/sh -eu
+              exec ${compton}/bin/compton -b
+            '';
+          };
+
+          xsettingsd-svc = nixpkgs.pkgs.writeTextFile {
+            name = "xsettingsd-svc";
+            executable = true;
+            destination = "/svc/xsettingsd/run";
+            text = ''
+              #!/bin/sh -eu
+              exec ${xsettingsd}/bin/xsettingsd
+            '';
+          };
+        in [
+          compton-svc
+          emacs-svc
+          ssh-svc
+          xbar-svc
+          xsettingsd-svc
+        ];
+
       buildInputs = [ ];
       meta = {
         description = "Collection of service units";
