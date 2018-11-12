@@ -131,7 +131,7 @@ let
             destination = "/svc/compton/run";
             text = ''
               #!/bin/sh -eu
-              exec ${compton}/bin/compton -b
+              exec ${compton}/bin/compton
             '';
           };
 
