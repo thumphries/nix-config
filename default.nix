@@ -103,6 +103,7 @@ in
     paths = [
       fonts.env
       fzmenu
+      nixpkgs.haskellPackages.glirc
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.networkmanagerapplet
       nixpkgs.pkgs.pamixer
