@@ -94,6 +94,10 @@ let
     xalt = xalt;
     xsettingsd = xsettingsd;
   };
+
+  glirc =
+    (nixpkgs.pkgs.haskellPackages.extend (self: super: {vty = self.vty_5_25_1;})).glirc;
+
 in
   nixpkgs.pkgs.buildEnv rec {
     name = "nix-config";
@@ -103,7 +107,7 @@ in
     paths = [
       fonts.env
       fzmenu
-      nixpkgs.haskellPackages.glirc
+      glirc
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.networkmanagerapplet
       nixpkgs.pkgs.pamixer
