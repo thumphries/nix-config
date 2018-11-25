@@ -111,6 +111,7 @@ in
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.networkmanagerapplet
       nixpkgs.pkgs.pamixer
+      nixpkgs.pkgs.redshift
       pkgs.acpilight
       pkgs.screenshot
       termite
