@@ -41,8 +41,10 @@ let
         border-color-focused = ''${theme.color4}'';
       };
       keymap = [
-        { keybind = "<XF86MonBrightnessUp>"; command = { spawn = backlightUp; }; }
-        { keybind = "<XF86MonBrightnessDown>"; command = { spawn = backlightDown; }; }
+        { keybind = "<XF86MonBrightnessUp>"; command = { spawn = backlightUp10; }; }
+        { keybind = "S-<XF86MonBrightnessUp>"; command = { spawn = backlightUp1; }; }
+        { keybind = "<XF86MonBrightnessDown>"; command = { spawn = backlightDown10; }; }
+        { keybind = "S-<XF86MonBrightnessDown>"; command = { spawn = backlightDown1; }; }
         { keybind = "<XF86AudioMute>"; command = { spawn = volumeMute; }; }
         { keybind = "<XF86AudioLowerVolume>"; command = { spawn = volumeDown; }; }
         { keybind = "<XF86AudioRaiseVolume>"; command = { spawn = volumeUp; }; }
@@ -63,8 +65,10 @@ let
     };
   };
 
-  backlightUp = ''${pkgs.acpilight}/bin/xbacklight -inc 10'';
-  backlightDown = ''${pkgs.acpilight}/bin/xbacklight -dec 10'';
+  backlightUp1 = ''${pkgs.acpilight}/bin/xbacklight -inc 1'';
+  backlightUp10 = ''${pkgs.acpilight}/bin/xbacklight -inc 10'';
+  backlightDown1 = ''${pkgs.acpilight}/bin/xbacklight -dec 1'';
+  backlightDown10 = ''${pkgs.acpilight}/bin/xbacklight -dec 10'';
   volumeUp = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -i 10'';
   volumeDown = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -d 10'';
   volumeMute = ''${nixpkgs.pkgs.pamixer}/bin/pamixer --toggle-mute'';
