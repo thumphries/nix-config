@@ -1,0 +1,2 @@
+#!/bin/sh
+nix-prefetch-git https://github.com/nixos/nixpkgs-channels.git refs/heads/nixos-unstable > nixpkgs.json
