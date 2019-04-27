@@ -53,6 +53,8 @@ let
          if builtins.hasAttr "spawn" cmd then "command: spawn: " + quote cmd.spawn
     else if builtins.hasAttr "restart" cmd then "command: restart"
     else if builtins.hasAttr "promote" cmd then "command: promote"
+    else if builtins.hasAttr "pin" cmd then "command: pin"
+    else if builtins.hasAttr "unpin" cmd then "command: unpin"
     else builtins.throw "bad xalt command";
 
   rules = rls :
