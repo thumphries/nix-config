@@ -104,7 +104,7 @@ let
   };
 
   glirc =
-    (nixpkgs.pkgs.haskellPackages.extend (self: super: {vty = self.vty_5_25_1;})).glirc;
+    nixpkgs.pkgs.haskellPackages.glirc;
 
 in
   nixpkgs.pkgs.buildEnv rec {
