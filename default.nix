@@ -52,6 +52,8 @@ let
         { keybind = "<XF86AudioRaiseVolume>"; command = { spawn = volumeUp; }; }
         { keybind = "M-S-r"; command = { restart = {}; }; }
         { keybind = "M-<Return>"; command = { promote = {}; }; }
+        { keybind = "M-a"; command = { pin = {}; }; }
+        { keybind = "M-S-a"; command = { unpin = {}; }; }
         { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
         { keybind = "M-o"; command = { spawn = promptCmd; }; }
       ];
