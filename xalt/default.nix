@@ -55,6 +55,10 @@ let
     else if builtins.hasAttr "promote" cmd then "command: promote"
     else if builtins.hasAttr "pin" cmd then "command: pin"
     else if builtins.hasAttr "unpin" cmd then "command: unpin"
+    else if builtins.hasAttr "magnify" cmd then "command: magnify"
+    else if builtins.hasAttr "fullscreen" cmd then "command: fullscreen"
+    else if builtins.hasAttr "float" cmd then "command: float"
+    else if builtins.hasAttr "sink" cmd then "command: sink"
     else builtins.throw "bad xalt command";
 
   rules = rls :
