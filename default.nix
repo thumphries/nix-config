@@ -54,6 +54,10 @@ let
         { keybind = "M-<Return>"; command = { promote = {}; }; }
         { keybind = "M-a"; command = { pin = {}; }; }
         { keybind = "M-S-a"; command = { unpin = {}; }; }
+        { keybind = "M-f"; command = { float = {}; }; }
+        { keybind = "M-t"; command = { sink = {}; }; }
+        { keybind = "M-m"; command = { magnify = {}; }; }
+        { keybind = "M-g"; command = { fullscreen = {}; }; }
         { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
         { keybind = "M-o"; command = { spawn = promptCmd; }; }
       ];
