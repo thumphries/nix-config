@@ -50,6 +50,7 @@ let
         { keybind = "<XF86AudioMute>"; command = { spawn = volumeMute; }; }
         { keybind = "<XF86AudioLowerVolume>"; command = { spawn = volumeDown; }; }
         { keybind = "<XF86AudioRaiseVolume>"; command = { spawn = volumeUp; }; }
+        { keybind = "<XF86Display>"; command = { spawn = autorandr; }; }
         { keybind = "M-S-r"; command = { restart = {}; }; }
         { keybind = "M-<Return>"; command = { promote = {}; }; }
         { keybind = "M-a"; command = { pin = {}; }; }
@@ -82,6 +83,7 @@ let
   volumeUp = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -i 10'';
   volumeDown = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -d 10'';
   volumeMute = ''${nixpkgs.pkgs.pamixer}/bin/pamixer --toggle-mute'';
+  autorandr = ''${nixpkgs.pkgs.autorandr}/bin/autorandr -c'';
   screenshotSel = ''${pkgs.screenshot}/bin/screenshot'';
 
   promptCmd = ''${termite}/bin/termite --class=${promptClass} -e "sh -c ${fzmenu}/bin/fzmenu_run"'';
@@ -122,6 +124,7 @@ in
       fonts.env
       fzmenu
       glirc
+      nixpkgs.pkgs.autorandr
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.networkmanagerapplet
       nixpkgs.pkgs.pamixer
