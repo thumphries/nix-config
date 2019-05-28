@@ -6,6 +6,10 @@ let
     ${xsetroot}/bin/xsetroot -cursor_name left_ptr
     ${setxkbmap}/bin/setxkbmap -option ctrl:nocaps
     ${autorandr}/bin/autorandr --change --default default
+    while true; do
+      sleep 5
+      ${autorandr}/bin/autorandr --change --default default
+    done &
     ${redshift}/bin/redshift &
     ${xsettingsd}/bin/xsettingsd &
     ${compton}/bin/compton -b &
