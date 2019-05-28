@@ -5,7 +5,11 @@ let
     set -euo pipefail
     ${xsetroot}/bin/xsetroot -cursor_name left_ptr
     ${setxkbmap}/bin/setxkbmap -option ctrl:nocaps
-    ${autorandr}/bin/autorandr --change --default default
+    ${autorandr}/bin/autorandr --change --default default --skip-options=gamma
+    while true; do
+      sleep 5
+      ${autorandr}/bin/autorandr --change --default default --skip-options=gamma
+    done &
     ${redshift}/bin/redshift &
     ${xsettingsd}/bin/xsettingsd &
     ${compton}/bin/compton -b &

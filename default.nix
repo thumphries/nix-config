@@ -83,7 +83,7 @@ let
   volumeUp = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -i 10'';
   volumeDown = ''${nixpkgs.pkgs.pamixer}/bin/pamixer -d 10'';
   volumeMute = ''${nixpkgs.pkgs.pamixer}/bin/pamixer --toggle-mute'';
-  autorandr = ''${nixpkgs.pkgs.autorandr}/bin/autorandr -c'';
+  autorandr = ''${nixpkgs.pkgs.autorandr}/bin/autorandr --change --default default --skip-options=gamma'';
   screenshotSel = ''${pkgs.screenshot}/bin/screenshot'';
 
   promptCmd = ''${termite}/bin/termite --class=${promptClass} -e "sh -c ${fzmenu}/bin/fzmenu_run"'';
