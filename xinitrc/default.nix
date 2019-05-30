@@ -1,10 +1,11 @@
 { stdenv, symlinkJoin, writeShellScriptBin
-, autorandr, compton, redshift, setxkbmap, xalt, xsetroot, xsettingsd }:
+, autorandr, compton, redshift, setxkbmap, xalt, xset, xsetroot, xsettingsd }:
 let
   script = writeShellScriptBin "session" ''
     set -euo pipefail
     ${xsetroot}/bin/xsetroot -cursor_name left_ptr
     ${setxkbmap}/bin/setxkbmap -option ctrl:nocaps
+    ${xset}/bin/xset r rate 180 25
     ${autorandr}/bin/autorandr --change --default default --skip-options=gamma
     while true; do
       sleep 5
