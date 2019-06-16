@@ -129,6 +129,7 @@ in
       nixpkgs.pkgs.networkmanagerapplet
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
+      nixpkgs.pkgs.xidlehook
       pkgs.acpilight
       pkgs.screenshot
       termite
