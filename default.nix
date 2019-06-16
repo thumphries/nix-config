@@ -36,7 +36,7 @@ let
     config = {
       general = {
         terminal = ''${termite}/bin/termite'';
-        border-width = 2;
+        border-width = 5;
         border-color = ''${theme.foreground}'';
         border-color-focused = ''${theme.color4}'';
       };
