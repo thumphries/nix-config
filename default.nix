@@ -127,6 +127,7 @@ in
       nixpkgs.pkgs.autorandr
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.networkmanagerapplet
+      nixpkgs.pkgs.nitrogen
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
       nixpkgs.pkgs.xidlehook
