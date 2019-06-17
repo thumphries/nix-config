@@ -36,7 +36,7 @@ let
     config = {
       general = {
         terminal = ''${termite}/bin/termite'';
-        border-width = 2;
+        border-width = 5;
         border-color = ''${theme.foreground}'';
         border-color-focused = ''${theme.color4}'';
       };
@@ -129,6 +129,7 @@ in
       nixpkgs.pkgs.networkmanagerapplet
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
+      nixpkgs.pkgs.xidlehook
       pkgs.acpilight
       pkgs.screenshot
       termite
