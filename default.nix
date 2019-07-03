@@ -125,10 +125,14 @@ in
       fzmenu
       glirc
       nixpkgs.pkgs.autorandr
+      nixpkgs.pkgs.emacs
       nixpkgs.pkgs.fzf
+      nixpkgs.pkgs.ghc
+      nixpkgs.pkgs.git
       nixpkgs.pkgs.networkmanagerapplet
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
+      nixpkgs.pkgs.tig
       nixpkgs.pkgs.xidlehook
       pkgs.acpilight
       pkgs.screenshot
