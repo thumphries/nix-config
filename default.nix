@@ -132,6 +132,7 @@ in
       nixpkgs.pkgs.networkmanagerapplet
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
+      nixpkgs.pkgs.ripgrep
       nixpkgs.pkgs.tig
       nixpkgs.pkgs.xidlehook
       pkgs.acpilight
