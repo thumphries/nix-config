@@ -129,7 +129,7 @@ in
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.ghc
       nixpkgs.pkgs.git
-      nixpkgs.pkgs.networkmanagerapplet
+      nixpkgs.pkgs.nitrogen
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
       nixpkgs.pkgs.ripgrep
