@@ -125,6 +125,7 @@ in
       fzmenu
       glirc
       nixpkgs.pkgs.autorandr
+      nixpkgs.pkgs.aws-vault
       nixpkgs.pkgs.emacs
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.ghc
