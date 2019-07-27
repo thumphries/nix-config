@@ -140,6 +140,7 @@ in
       nixpkgs.pkgs.redshift
       nixpkgs.pkgs.ripgrep
       nixpkgs.pkgs.tig
+      nixpkgs.pkgs.wrk2
       nixpkgs.pkgs.xidlehook
       pkgs.acpilight
       pkgs.screenshot
