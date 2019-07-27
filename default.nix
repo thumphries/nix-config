@@ -114,6 +114,9 @@ let
   glirc =
     (nixpkgs.pkgs.haskellPackages.extend (self: super: {vty = self.vty_5_25_1;})).glirc;
 
+  bench =
+    nixpkgs.pkgs.haskellPackages.bench;
+
 in
   nixpkgs.pkgs.buildEnv rec {
     name = "nix-config";
@@ -121,6 +124,7 @@ in
     meta.priority = 9;
 
     paths = [
+      bench
       fonts.env
       fzmenu
       glirc
