@@ -136,6 +136,9 @@ in
       nixpkgs.pkgs.ghc
       nixpkgs.pkgs.git
       nixpkgs.pkgs.nitrogen
+      nixpkgs.pkgs.kbfs
+      nixpkgs.pkgs.keybase-go
+      nixpkgs.pkgs.keybase-gui
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
       nixpkgs.pkgs.ripgrep
