@@ -131,6 +131,7 @@ in
       nixpkgs.pkgs.autorandr
       nixpkgs.pkgs.awscli
       nixpkgs.pkgs.aws-vault
+      nixpkgs.pkgs.cloc
       nixpkgs.pkgs.emacs
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.ghc
