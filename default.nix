@@ -142,6 +142,7 @@ in
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
       nixpkgs.pkgs.ripgrep
+      nixpkgs.pkgs.strace
       nixpkgs.pkgs.tig
       nixpkgs.pkgs.wrk2
       nixpkgs.pkgs.xidlehook
