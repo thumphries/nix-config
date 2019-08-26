@@ -136,6 +136,7 @@ in
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.ghc
       nixpkgs.pkgs.git
+      nixpkgs.pkgs.i7z
       nixpkgs.pkgs.nitrogen
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
