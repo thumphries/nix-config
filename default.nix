@@ -131,12 +131,14 @@ in
       nixpkgs.pkgs.autorandr
       nixpkgs.pkgs.awscli
       nixpkgs.pkgs.aws-vault
+      nixpkgs.pkgs.cacert
       nixpkgs.pkgs.cloc
       nixpkgs.pkgs.emacs
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.ghc
       nixpkgs.pkgs.git
       nixpkgs.pkgs.i7z
+      nixpkgs.pkgs.jq
       nixpkgs.pkgs.nitrogen
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
