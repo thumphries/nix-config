@@ -6,10 +6,10 @@ let
     ${xsetroot}/bin/xsetroot -cursor_name left_ptr
     ${setxkbmap}/bin/setxkbmap -option ctrl:nocaps
     ${xset}/bin/xset r rate 180 25
-    ${autorandr}/bin/autorandr --change --skip-options=gamma
+    ${autorandr}/bin/autorandr --change --skip-options=gamma --default clone-largest
     while true; do
       sleep 5
-      ${autorandr}/bin/autorandr --change --skip-options=gamma
+      ${autorandr}/bin/autorandr --change --skip-options=gamma --default clone-largest
     done &
     ${redshift}/bin/redshift &
     ${xsettingsd}/bin/xsettingsd &
