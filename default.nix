@@ -96,6 +96,7 @@ let
   };
 
   fzmenu = nixpkgs.pkgs.callPackage ./fzmenu {};
+  fztz = nixpkgs.pkgs.callPackage ./fztz {};
 
   compton = nixpkgs.pkgs.callPackage ./compton {
     config = {
@@ -127,10 +128,12 @@ in
       bench
       fonts.env
       fzmenu
+      fztz
       glirc
       nixpkgs.pkgs.autorandr
       nixpkgs.pkgs.awscli
       nixpkgs.pkgs.aws-vault
+      nixpkgs.pkgs.direnv
       nixpkgs.pkgs.emacs
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.ghc
@@ -139,6 +142,7 @@ in
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.redshift
       nixpkgs.pkgs.ripgrep
+      nixpkgs.pkgs.sqlite
       nixpkgs.pkgs.tig
       nixpkgs.pkgs.wrk2
       nixpkgs.pkgs.xidlehook
