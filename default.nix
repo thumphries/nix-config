@@ -138,8 +138,20 @@ in
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.ghc
       nixpkgs.pkgs.git
-      nixpkgs.pkgs.nitrogen
+
+      # sound
       nixpkgs.pkgs.pamixer
+      nixpkgs.pkgs.playerctl
+
+      # mpd
+      nixpkgs.pkgs.mpd
+      nixpkgs.pkgs.mpdscribble
+      nixpkgs.pkgs.mpdris2
+      nixpkgs.pkgs.ncmpcpp
+
+      nixpkgs.pkgs.networkmanager_dmenu
+
+      nixpkgs.pkgs.nitrogen
       nixpkgs.pkgs.redshift
       nixpkgs.pkgs.ripgrep
       nixpkgs.pkgs.sqlite
