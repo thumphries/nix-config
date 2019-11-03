@@ -144,6 +144,8 @@ in
       nixpkgs.pkgs.fd
       nixpkgs.pkgs.exa
       nixpkgs.pkgs.ripgrep
+      nixpkgs.pkgs.hyperfine
+      #nixpkgs.pkgs.sd
 
       # sound
       nixpkgs.pkgs.pamixer
