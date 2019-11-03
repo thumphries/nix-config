@@ -138,6 +138,7 @@ in
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.ghc
       nixpkgs.pkgs.git
+      nixpkgs.pkgs.bat
 
       # sound
       nixpkgs.pkgs.pamixer
