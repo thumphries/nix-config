@@ -138,7 +138,12 @@ in
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.ghc
       nixpkgs.pkgs.git
+
+      # fancy coreutils replacements
       nixpkgs.pkgs.bat
+      nixpkgs.pkgs.fd
+      nixpkgs.pkgs.exa
+      nixpkgs.pkgs.ripgrep
 
       # sound
       nixpkgs.pkgs.pamixer
@@ -154,7 +159,7 @@ in
 
       nixpkgs.pkgs.nitrogen
       nixpkgs.pkgs.redshift
-      nixpkgs.pkgs.ripgrep
+
       nixpkgs.pkgs.sqlite
       nixpkgs.pkgs.tig
       nixpkgs.pkgs.wrk2
