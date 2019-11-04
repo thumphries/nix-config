@@ -137,7 +137,11 @@ in
       nixpkgs.pkgs.emacs
       nixpkgs.pkgs.fzf
       nixpkgs.pkgs.ghc
+
+      # git et al
+      nixpkgs.pkgs.cacert
       nixpkgs.pkgs.git
+      nixpkgs.pkgs.tig
 
       # fancy coreutils replacements
       nixpkgs.pkgs.bat
@@ -163,7 +167,7 @@ in
       nixpkgs.pkgs.redshift
 
       nixpkgs.pkgs.sqlite
-      nixpkgs.pkgs.tig
+
       nixpkgs.pkgs.wrk2
       nixpkgs.pkgs.xidlehook
       pkgs.acpilight
