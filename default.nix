@@ -117,7 +117,6 @@ let
 
   bench =
     nixpkgs.pkgs.haskellPackages.bench;
-
 in
   nixpkgs.pkgs.buildEnv rec {
     name = "nix-config";
@@ -150,6 +149,11 @@ in
       nixpkgs.pkgs.ripgrep
       nixpkgs.pkgs.hyperfine
       #nixpkgs.pkgs.sd
+
+      # json manipulation
+      nixpkgs.pkgs.jq
+      nixpkgs.pkgs.jid
+      #nixpkgs.pkgs.jiq
 
       # sound
       nixpkgs.pkgs.pamixer
