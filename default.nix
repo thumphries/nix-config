@@ -125,16 +125,17 @@ in
 
     paths = [
       bench
-      fonts.env
-      fzmenu
+
       fztz
       glirc
-      nixpkgs.pkgs.autorandr
+
       nixpkgs.pkgs.awscli
       nixpkgs.pkgs.aws-vault
+
       nixpkgs.pkgs.direnv
       nixpkgs.pkgs.emacs
       nixpkgs.pkgs.fzf
+
       nixpkgs.pkgs.ghc
 
       # git et al
@@ -152,7 +153,7 @@ in
 
       # json manipulation
       nixpkgs.pkgs.jq
-      nixpkgs.pkgs.jid
+      #nixpkgs.pkgs.jid
       #nixpkgs.pkgs.jiq
 
       # sound
@@ -165,20 +166,28 @@ in
       nixpkgs.pkgs.mpdris2
       nixpkgs.pkgs.ncmpcpp
 
-      nixpkgs.pkgs.networkmanager_dmenu
-
+      # x11
+      nixpkgs.pkgs.autorandr
       nixpkgs.pkgs.nitrogen
       nixpkgs.pkgs.redshift
+      nixpkgs.pkgs.xclip
+      nixpkgs.pkgs.xidlehook
+      pkgs.acpilight
+      pkgs.screenshot
+      xalt
+      xinitrc
+      xsettingsd
+
+      # desktop
+      fonts.env
+      fzmenu
+      termite
+
+      # networking
+      nixpkgs.pkgs.networkmanager_dmenu
 
       nixpkgs.pkgs.sqlite
 
       nixpkgs.pkgs.wrk2
-      nixpkgs.pkgs.xidlehook
-      pkgs.acpilight
-      pkgs.screenshot
-      termite
-      xalt
-      xinitrc
-      xsettingsd
     ];
   }
