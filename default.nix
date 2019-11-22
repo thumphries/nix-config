@@ -170,6 +170,7 @@ in
 
       # x11
       nixpkgs.pkgs.autorandr
+      nixpkgs.pkgs.firefox
       nixpkgs.pkgs.nitrogen
       nixpkgs.pkgs.redshift
       nixpkgs.pkgs.xclip
