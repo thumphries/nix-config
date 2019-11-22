@@ -1,7 +1,7 @@
 let
-  nixpkgs =
+  pinned = pin:
     let
-      path = ./. + "/nixpkgs.json";
+      path = ./. + pin;
       json = builtins.fromJSON (builtins.readFile path);
     in
       import ((import <nixpkgs> { }).fetchFromGitHub {
@@ -10,9 +10,21 @@ let
         inherit (json) rev sha256;
       }) { config = { }; };
 
-  private = nixpkgs.pkgs.callPackage ./private {};
+  # Stuck in the past
+  oldpkgs = pinned "/nixpkgs.old.json";
+  glirc =
+    (oldpkgs.pkgs.haskellPackages.extend (self: super: {vty = self.vty_5_25_1;})).glirc;
+  pkgs = oldpkgs.pkgs.callPackage ./pkgs {};
+  compton = oldpkgs.pkgs.callPackage ./compton {
+    config = {
+      fade-delta = 10;
+    };
+  };
+  xalt = xaltt oldpkgs;
 
-  pkgs = nixpkgs.pkgs.callPackage ./pkgs {};
+  nixpkgs = pinned "/nixpkgs.json";
+
+  private = nixpkgs.pkgs.callPackage ./private {};
 
   fonts = nixpkgs.pkgs.callPackage ./fonts { private = private; };
 
@@ -30,8 +42,8 @@ let
     };
   };
 
-  xalt = nixpkgs.pkgs.callPackage ./xalt {
-    nixpkgs = nixpkgs;
+  xaltt = pkgs: oldpkgs.pkgs.callPackage ./xalt {
+    nixpkgs = pkgs;
     themes = themes;
     config = {
       general = {
@@ -98,12 +110,6 @@ let
   fzmenu = nixpkgs.pkgs.callPackage ./fzmenu {};
   fztz = nixpkgs.pkgs.callPackage ./fztz {};
 
-  compton = nixpkgs.pkgs.callPackage ./compton {
-    config = {
-      fade-delta = 10;
-    };
-  };
-
   xsettingsd = nixpkgs.pkgs.callPackage ./xsettingsd {};
 
   xinitrc = nixpkgs.pkgs.callPackage ./xinitrc {
@@ -111,12 +117,6 @@ let
     xalt = xalt;
     xsettingsd = xsettingsd;
   };
-
-  glirc =
-    (nixpkgs.pkgs.haskellPackages.extend (self: super: {vty = self.vty_5_25_1;})).glirc;
-
-  bench =
-    nixpkgs.pkgs.haskellPackages.bench;
 in
   nixpkgs.pkgs.buildEnv rec {
     name = "nix-config";
@@ -124,18 +124,18 @@ in
     meta.priority = 9;
 
     paths = [
-      bench
-
       fztz
       glirc
 
+      # aws
       nixpkgs.pkgs.awscli
       nixpkgs.pkgs.aws-vault
 
-      nixpkgs.pkgs.direnv
       nixpkgs.pkgs.emacs
+      nixpkgs.pkgs.direnv
       nixpkgs.pkgs.fzf
 
+      # haskell
       nixpkgs.pkgs.ghc
 
       # git et al
@@ -148,12 +148,16 @@ in
       nixpkgs.pkgs.fd
       nixpkgs.pkgs.exa
       nixpkgs.pkgs.ripgrep
+      nixpkgs.pkgs.sd
+
+      # benchmarking
+      nixpkgs.pkgs.haskellPackages.bench
       nixpkgs.pkgs.hyperfine
-      #nixpkgs.pkgs.sd
+      nixpkgs.pkgs.wrk2
 
       # json manipulation
       nixpkgs.pkgs.jq
-      #nixpkgs.pkgs.jid
+      nixpkgs.pkgs.jid
       #nixpkgs.pkgs.jiq
 
       # sound
@@ -183,11 +187,13 @@ in
       fzmenu
       termite
 
+      # web
+      nixpkgs.pkgs.firefox
+
       # networking
       nixpkgs.pkgs.networkmanager_dmenu
 
+      # db
       nixpkgs.pkgs.sqlite
-
-      nixpkgs.pkgs.wrk2
     ];
   }
