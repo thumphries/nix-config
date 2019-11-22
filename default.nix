@@ -1,7 +1,7 @@
 let
-  nixpkgs =
+  pinned = pin:
     let
-      path = ./. + "/nixpkgs.json";
+      path = ./. + pin;
       json = builtins.fromJSON (builtins.readFile path);
     in
       import ((import <nixpkgs> { }).fetchFromGitHub {
@@ -10,9 +10,14 @@ let
         inherit (json) rev sha256;
       }) { config = { }; };
 
-  private = nixpkgs.pkgs.callPackage ./private {};
+  oldpkgs = pinned "/nixpkgs.old.json";
+  glirc =
+    (oldpkgs.pkgs.haskellPackages.extend (self: super: {vty = self.vty_5_25_1;})).glirc;
+  pkgs = oldpkgs.pkgs.callPackage ./pkgs {};
 
-  pkgs = nixpkgs.pkgs.callPackage ./pkgs {};
+  nixpkgs = pinned "/nixpkgs.json";
+
+  private = nixpkgs.pkgs.callPackage ./private {};
 
   fonts = nixpkgs.pkgs.callPackage ./fonts { private = private; };
 
@@ -30,8 +35,8 @@ let
     };
   };
 
-  xalt = nixpkgs.pkgs.callPackage ./xalt {
-    nixpkgs = nixpkgs;
+  xalt = oldpkgs.pkgs.callPackage ./xalt {
+    nixpkgs = oldpkgs;
     themes = themes;
     config = {
       general = {
@@ -111,9 +116,6 @@ let
     xalt = xalt;
     xsettingsd = xsettingsd;
   };
-
-  glirc =
-    (nixpkgs.pkgs.haskellPackages.extend (self: super: {vty = self.vty_5_25_1;})).glirc;
 
   bench =
     nixpkgs.pkgs.haskellPackages.bench;
