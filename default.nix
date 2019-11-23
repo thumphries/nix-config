@@ -51,6 +51,7 @@ let
         border-width = 5;
         border-color = ''${theme.foreground}'';
         border-color-focused = ''${theme.color4}'';
+        window-gaps = 15;
       };
       keymap = [
         { keybind = "<XF86MonBrightnessUp>"; command = { spawn = backlightUp10; }; }

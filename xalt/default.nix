@@ -8,6 +8,7 @@ let
       border-width = 1;
       border-color = "#000000";
       border-color-focused = "#FEFEFE";
+      window-gaps = 5;
     };
     keymap = [
       { keybind = "M-S-r"; command = { restart = {}; }; }
@@ -38,6 +39,7 @@ let
         border-width: ${toString cfg.general.border-width}
         border-color: ${quote cfg.general.border-color}
         border-color-focused: ${quote cfg.general.border-color-focused}
+        window-gaps: ${toString cfg.general.window-gaps}
 
       keymap:
       ${keymap cfg.keymap}
