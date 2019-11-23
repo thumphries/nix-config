@@ -74,6 +74,8 @@ let
         { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
         { keybind = "M-o"; command = { spawn = promptCmd; }; }
         { keybind = "M-`"; command = { scratch = "term"; }; }
+        { keybind = "M-u"; command = { scratch = "firefox"; }; }
+        { keybind = "M-S-u"; command = { scratch = "firefox-work"; }; }
       ];
       rules = [
         { selector = { class = promptClass; }; action = { rect = promptRect; }; }
@@ -82,7 +84,19 @@ let
         {
           name = "term";
           command = "${term} --role=scratchpad";
-          selector = { role = "term-scratchpad"; };
+          selector = { role = "scratchpad"; };
+          action = { rect = termRect; };
+        }
+        {
+          name = "firefox";
+          command = "firefox --class=foxpad";
+          selector = { class = "foxpad";};
+          action = { rect = termRect; };
+        }
+        {
+          name = "firefox-work";
+          command = "firefox -p professional --class=foxpro";
+          selector = { class = "foxpro"; };
           action = { rect = termRect; };
         }
       ];
