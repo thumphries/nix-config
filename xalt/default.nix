@@ -86,6 +86,7 @@ let
 
   action = act :
          if builtins.hasAttr "rect" act then "rect: " + rect act.rect
+    else if builtins.hasAttr "tile" act then "tile"
     else builtins.throw "bad xalt action";
 
   rect = rect :

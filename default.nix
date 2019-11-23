@@ -91,13 +91,13 @@ let
           name = "firefox";
           command = "firefox --class=foxpad";
           selector = { class = "foxpad";};
-          action = { rect = termRect; };
+          action = { tile = {}; };
         }
         {
           name = "firefox-work";
           command = "firefox -p professional --class=foxpro";
           selector = { class = "foxpro"; };
-          action = { rect = termRect; };
+          action = { tile = {}; };
         }
       ];
       xbar = {
