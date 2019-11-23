@@ -47,7 +47,7 @@ let
     themes = themes;
     config = {
       general = {
-        terminal = ''${termite}/bin/termite'';
+        terminal = ''${term}'';
         border-width = 5;
         border-color = ''${theme.foreground}'';
         border-color-focused = ''${theme.color4}'';
@@ -73,9 +73,18 @@ let
         { keybind = "M-g"; command = { fullscreen = {}; }; }
         { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
         { keybind = "M-o"; command = { spawn = promptCmd; }; }
+        { keybind = "M-u"; command = { scratch = "term"; }; }
       ];
       rules = [
         { selector = { class = promptClass; }; action = { rect = promptRect; }; }
+      ];
+      scratchpads = [
+        {
+          name = "term";
+          command = "${term} --role=scratchpad";
+          selector = { role = "term-scratchpad"; };
+          action = { rect = termRect; };
+        }
       ];
       xbar = {
         theme = theme;
@@ -98,7 +107,16 @@ let
   autorandr = ''${nixpkgs.pkgs.autorandr}/bin/autorandr --change --default default --skip-options=gamma'';
   screenshotSel = ''${pkgs.screenshot}/bin/screenshot'';
 
-  promptCmd = ''${termite}/bin/termite --class=${promptClass} -e "sh -c ${fzmenu}/bin/fzmenu_run"'';
+  term = ''${termite}/bin/termite'';
+
+  termRect = {
+    x = 0.1;
+    y = 0.1;
+    w = 0.8;
+    h = 0.33;
+  };
+
+  promptCmd = ''${term} --class=${promptClass} -e "sh -c ${fzmenu}/bin/fzmenu_run"'';
   promptClass = "fzmenu";
   promptRect = {
     x = 0.0;

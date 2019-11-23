@@ -17,6 +17,7 @@ let
       { selector = { role = "floating"; };
         action = { rect = { x = 0.1; y = 0.0; w = 1.0; h = 0.2; }; }; }
     ];
+    scratchpads = [];
     xbar = {
       font-face = "Monospace";
       font-style = "";
@@ -43,6 +44,9 @@ let
 
       rules:
       ${rules cfg.rules}
+
+      scratchpads:
+      ${pads cfg.scratchpads}
     '';
   };
 
@@ -59,12 +63,21 @@ let
     else if builtins.hasAttr "fullscreen" cmd then "command: fullscreen"
     else if builtins.hasAttr "float" cmd then "command: float"
     else if builtins.hasAttr "sink" cmd then "command: sink"
+    else if builtins.hasAttr "scratch" cmd then "command: scratch: " + quote cmd.scratch
     else builtins.throw "bad xalt command";
 
   rules = rls :
     lib.concatStringsSep "\n"
       (builtins.map (s: "  * selector: " + selector s.selector
                     + "\n    action: " + action s.action) rls);
+
+  pads = pds :
+    lib.concatStringsSep "\n"
+      (builtins.map (p: "  * name: " + quote p.name
+                    + "\n    command: " + quote p.command
+                    + "\n    selector: " + selector p.selector
+                    + "\n    action: " + action p.action) pds);
+
   selector = sel :
          if builtins.hasAttr "role" sel then "role: " + quote sel.role
     else if builtins.hasAttr "name" sel then "name: " + quote sel.name
