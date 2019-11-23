@@ -73,7 +73,7 @@ let
         { keybind = "M-g"; command = { fullscreen = {}; }; }
         { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
         { keybind = "M-o"; command = { spawn = promptCmd; }; }
-        { keybind = "M-u"; command = { scratch = "term"; }; }
+        { keybind = "M-`"; command = { scratch = "term"; }; }
       ];
       rules = [
         { selector = { class = promptClass; }; action = { rect = promptRect; }; }
