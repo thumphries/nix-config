@@ -74,9 +74,11 @@ let
         { keybind = "M-g"; command = { fullscreen = {}; }; }
         { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
         { keybind = "M-o"; command = { spawn = promptCmd; }; }
+
         { keybind = "M-`"; command = { scratch = "term"; }; }
         { keybind = "M-u"; command = { scratch = "firefox"; }; }
         { keybind = "M-S-u"; command = { scratch = "firefox-work"; }; }
+        { keybind = "M-i"; command = { scratch = "ncmpcpp"; }; }
       ];
       rules = [
         { selector = { class = promptClass; }; action = { rect = promptRect; }; }
@@ -86,6 +88,12 @@ let
           name = "term";
           command = "${term} --role=scratchpad";
           selector = { role = "scratchpad"; };
+          action = { rect = termRect; };
+        }
+        {
+          name = "ncmpcpp";
+          command = "${term} --role=ncmpcpp --exec=${nixpkgs.pkgs.ncmpcpp}/bin/ncmpcpp";
+          selector = { role = "ncmpcpp"; };
           action = { rect = termRect; };
         }
         {
