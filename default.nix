@@ -42,43 +42,61 @@ let
     };
   };
 
+  rofi = nixpkgs.symlinkJoin {
+    name = "rofi-select";
+    paths = [nixpkgs.pkgs.rofi];
+    buildInputs = [nixpkgs.makeWrapper nixpkgs.pkgs.glibcLocales];
+    postBuild = ''
+      wrapProgram $out/bin/rofi \
+        --add-flags "-dmenu -i -format i -markup-rows" \
+        --set LOCALE_ARCHIVE "${nixpkgs.pkgs.glibcLocales}/lib/locale/locale-archive"
+    '';
+  };
+
   xaltt = pkgs: oldpkgs.pkgs.callPackage ./xalt {
     nixpkgs = pkgs;
     themes = themes;
     config = {
       general = {
         terminal = ''${term}'';
+        selector = ''${rofi}/bin/rofi'';
         border-width = 5;
         border-color = ''${theme.foreground}'';
         border-color-focused = ''${theme.color4}'';
         window-gaps = 15;
       };
       keymap = [
-        { keybind = "<XF86MonBrightnessUp>"; command = { spawn = backlightUp10; }; }
-        { keybind = "S-<XF86MonBrightnessUp>"; command = { spawn = backlightUp1; }; }
-        { keybind = "C-S-<XF86MonBrightnessUp>"; command = { spawn = kbdBacklightUp; }; }
-        { keybind = "<XF86MonBrightnessDown>"; command = { spawn = backlightDown10; }; }
-        { keybind = "S-<XF86MonBrightnessDown>"; command = { spawn = backlightDown1; }; }
-        { keybind = "C-S-<XF86MonBrightnessDown>"; command = { spawn = kbdBacklightDown; }; }
-        { keybind = "<XF86AudioMute>"; command = { spawn = volumeMute; }; }
-        { keybind = "<XF86AudioLowerVolume>"; command = { spawn = volumeDown; }; }
-        { keybind = "<XF86AudioRaiseVolume>"; command = { spawn = volumeUp; }; }
-        { keybind = "<XF86Display>"; command = { spawn = autorandr; }; }
-        { keybind = "M-S-r"; command = { restart = {}; }; }
-        { keybind = "M-<Return>"; command = { promote = {}; }; }
-        { keybind = "M-a"; command = { pin = {}; }; }
-        { keybind = "M-S-a"; command = { unpin = {}; }; }
-        { keybind = "M-f"; command = { float = {}; }; }
-        { keybind = "M-t"; command = { sink = {}; }; }
-        { keybind = "M-m"; command = { magnify = {}; }; }
-        { keybind = "M-g"; command = { fullscreen = {}; }; }
-        { keybind = "M-S-4"; command = { spawn = screenshotSel; }; }
-        { keybind = "M-o"; command = { spawn = promptCmd; }; }
+        # XF86 / hardware configuration
+        (keybind "<XF86MonBrightnessUp>"       (spawn backlightUp10)    "Screen brightness +10")
+        (keybind "S-<XF86MonBrightnessUp>"     (spawn backlightUp1)     "Screen brightness +1")
+        (keybind "C-S-<XF86MonBrightnessUp>"   (spawn kbdBacklightUp)   "Keyboard brightness +50")
+        (keybind "<XF86MonBrightnessDown>"     (spawn backlightDown10)  "Screen brightness -10")
+        (keybind "S-<XF86MonBrightnessDown>"   (spawn backlightDown1)   "Screen brightness -1")
+        (keybind "C-S-<XF86MonBrightnessDown>" (spawn kbdBacklightDown) "Keyboard brightness -50")
+        (keybind "<XF86AudioMute>"             (spawn volumeMute)       "Mute")
+        (keybind "<XF86AudioLowerVolume>"      (spawn volumeDown)       "Volume down")
+        (keybind "<XF86AudioRaiseVolume>"      (spawn volumeUp)         "Volume up")
+        (keybind "<XF86Display>"               (spawn autorandr)        "Detect displays")
 
-        { keybind = "M-`"; command = { scratch = "term"; }; }
-        { keybind = "M-u"; command = { scratch = "firefox"; }; }
-        { keybind = "M-S-u"; command = { scratch = "firefox-work"; }; }
-        { keybind = "M-i"; command = { scratch = "ncmpcpp"; }; }
+        # WM process control
+        (keybind "M-S-r"                       { restart = {}; }        "Restart WM")
+
+        # Window management
+        (keybind "M-<Return>"                  { promote = {}; }        "Promote")
+        (keybind "M-a"                         { pin = {}; }            "Pin to all workspaces")
+        (keybind "M-S-a"                       { unpin = {}; }          "Unpin from all workspaces")
+        (keybind "M-f"                         { float = {}; }          "Float window")
+        (keybind "M-t"                         { sink = {}; }           "Sink window")
+        (keybind "M-m"                         { magnify = {}; }        "Magnify window")
+        (keybind "M-g"                         { fullscreen = {}; }     "Fullscreen window")
+        (keybind "M-S-4"                       (spawn screenshotSel)    "Take screenshot with selection")
+        (keybind "M-o"                         (spawn promptCmd)        "Run command")
+
+        # Scratchpads
+        (keybind "M-`"                         (scratch "term")         "")
+        (keybind "M-u"                         (scratch "firefox")      "")
+        (keybind "M-S-u"                       (scratch "firefox-work") "")
+        (keybind "M-i"                         (scratch "ncmpcpp")      "")
       ];
       rules = [
         { selector = { class = promptClass; }; action = { rect = promptRect; }; }
@@ -117,6 +135,12 @@ let
       };
     };
   };
+
+  # Command / keybinding shorthand
+  keybind = k : c : d :
+    { keybind = k; command = c; description = d; };
+  spawn = x : { spawn = x; };
+  scratch = x : { scratch = x; };
 
   backlightUp1 = ''${pkgs.acpilight}/bin/xbacklight -inc 1'';
   backlightUp10 = ''${pkgs.acpilight}/bin/xbacklight -inc 10'';
@@ -165,6 +189,8 @@ in
     meta.priority = 9;
 
     paths = [
+      nixpkgs.pkgs.glibcLocales
+
       fztz
       glirc
 
@@ -226,6 +252,7 @@ in
       # desktop
       fonts.env
       fzmenu
+      nixpkgs.pkgs.rofi
       termite
 
       # web

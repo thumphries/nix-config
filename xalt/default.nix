@@ -36,6 +36,7 @@ let
     text = ''
       general:
         terminal: ${quote cfg.general.terminal}
+        selector: ${quote cfg.general.selector}
         border-width: ${toString cfg.general.border-width}
         border-color: ${quote cfg.general.border-color}
         border-color-focused: ${quote cfg.general.border-color-focused}
@@ -54,7 +55,10 @@ let
 
   keymap = keys :
     lib.concatStringsSep "\n"
-      (builtins.map (k: "  * keybind: " + quote k.keybind + "\n    " + keycmd k.command) keys);
+      (builtins.map (k: "  * keybind: " + quote k.keybind
+                    + "\n    " + keycmd k.command
+         + (if (builtins.hasAttr "description" k && builtins.stringLength k.description > 0)
+                 then "\n    description: " + quote k.description else "")) keys);
   keycmd = cmd :
          if builtins.hasAttr "spawn" cmd then "command: spawn: " + quote cmd.spawn
     else if builtins.hasAttr "restart" cmd then "command: restart"
