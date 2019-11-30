@@ -65,6 +65,6 @@ in
 
     postBuild = ''
       wrapProgram $out/bin/termite \
-        --add-flags "--config=${config-file}/etc/termite.conf"
+        --add-flags "--config=${config-file}/etc/termite.conf --class=termite"
     '';
   }
