@@ -44,7 +44,7 @@ let
 
   rofi =
     let
-      minFlags = "-dmenu -i -markup-rows -format i -async-pre-read 25 -p X";
+      minFlags = "-markup-rows -async-pre-read 25 -p X";
       font = "${fonts.info.pragmatapro.pragmatapro.face} 18";
       # bg, fg, bgalt, hlbg, hlfg
       normal = "${theme.background},${theme.foreground},${theme.background},${theme.color0},${theme.color15}";
@@ -52,15 +52,26 @@ let
       window = "${theme.background},${theme.foreground},${theme.foreground}";
       rofiTheme = "-font \"${font}\" -color-normal \"${normal}\" -color-window \"${window}\"";
     in nixpkgs.symlinkJoin {
-        name = "rofi-select";
+        name = "rofi";
         paths = [nixpkgs.pkgs.rofi];
         buildInputs = [nixpkgs.makeWrapper nixpkgs.pkgs.glibcLocales];
         postBuild = ''
           wrapProgram $out/bin/rofi \
             --add-flags '${minFlags} ${rofiTheme}' \
             --set LOCALE_ARCHIVE "${nixpkgs.pkgs.glibcLocales}/lib/locale/locale-archive"
+
+          makeWrapper $out/bin/rofi $out/bin/rofi-select --add-flags '-dmenu -i -format i'
+          makeWrapper $out/bin/rofi $out/bin/rofi-run --add-flags '-modi run -show run -show-icons'
+          makeWrapper $out/bin/rofi $out/bin/rofi-drun --add-flags '-modi drun -show drun -show-icons'
+          makeWrapper $out/bin/rofi $out/bin/rofi-window --add-flags '-modi window,windowcd -show window'
+          makeWrapper $out/bin/rofi $out/bin/rofi-windowcd --add-flags '-modi window,windowcd -show windowcd'
         '';
       };
+  rofiRun = ''${rofi}/bin/rofi-run'';
+  rofiDrun = ''${rofi}/bin/rofi-drun'';
+  rofiWindow = ''${rofi}/bin/rofi-window'';
+  rofiWindowCd = ''${rofi}/bin/rofi-windowcd'';
+  rofiSelect = ''${rofi}/bin/rofi-select'';
 
   xaltt = pkgs: oldpkgs.pkgs.callPackage ./xalt {
     nixpkgs = pkgs;
@@ -68,7 +79,7 @@ let
     config = {
       general = {
         terminal = ''${term}'';
-        selector = ''${rofi}/bin/rofi'';
+        selector = ''${rofi}/bin/rofi-select'';
         border-width = 5;
         border-color = ''${theme.foreground}'';
         border-color-focused = ''${theme.color4}'';
@@ -99,7 +110,13 @@ let
         (keybind "M-m"                         { magnify = {}; }        "Magnify window")
         (keybind "M-g"                         { fullscreen = {}; }     "Fullscreen window")
         (keybind "M-S-4"                       (spawn screenshotSel)    "Take screenshot with selection")
-        (keybind "M-o"                         (spawn promptCmd)        "Run command")
+
+        # Prompts and launchers
+        (keybind "M-o"                         (spawn rofiDrun)         "Launch XDG application")
+        (keybind "M-S-o"                       (spawn rofiRun)          "Launch shell command")
+        (keybind "M-<Tab>"                     (spawn rofiWindowCd)     "Switch windows (current workspace)")
+        (keybind "M-S-<Tab>"                   (spawn rofiWindow)       "Switch windows (all workspaces)")
+
 
         # Scratchpads
         (keybind "M-`"                         (scratch "term")         "")
@@ -261,7 +278,7 @@ in
       # desktop
       fonts.env
       fzmenu
-      nixpkgs.pkgs.rofi
+      rofi
       termite
 
       # web
