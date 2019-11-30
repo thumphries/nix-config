@@ -44,7 +44,7 @@ let
 
   rofi =
     let
-      minFlags = "-markup-rows -async-pre-read 25 -p X";
+      minFlags = "-markup-rows -async-pre-read 25 -scroll-method 1 -p X";
       font = "${fonts.info.pragmatapro.pragmatapro.face} 18";
       # bg, fg, bgalt, hlbg, hlfg
       normal = "${theme.background},${theme.foreground},${theme.background},${theme.color0},${theme.color15}";
@@ -61,6 +61,7 @@ let
             --set LOCALE_ARCHIVE "${nixpkgs.pkgs.glibcLocales}/lib/locale/locale-archive"
 
           makeWrapper $out/bin/rofi $out/bin/rofi-select --add-flags '-dmenu -i -format i'
+          makeWrapper $out/bin/rofi $out/bin/rofi-select-multi --add-flags '-dmenu -i -format i -multi-select'
           makeWrapper $out/bin/rofi $out/bin/rofi-run --add-flags '-modi run -show run -show-icons'
           makeWrapper $out/bin/rofi $out/bin/rofi-drun --add-flags '-modi drun -show drun -show-icons'
           makeWrapper $out/bin/rofi $out/bin/rofi-window --add-flags '-modi window,windowcd -show window'
@@ -72,6 +73,7 @@ let
   rofiWindow = ''${rofi}/bin/rofi-window'';
   rofiWindowCd = ''${rofi}/bin/rofi-windowcd'';
   rofiSelect = ''${rofi}/bin/rofi-select'';
+  rofiSelectMulti = ''${rofi}/bin/rofi-select-multi'';
 
   xaltt = pkgs: oldpkgs.pkgs.callPackage ./xalt {
     nixpkgs = pkgs;
