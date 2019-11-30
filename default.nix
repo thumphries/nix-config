@@ -42,16 +42,25 @@ let
     };
   };
 
-  rofi = nixpkgs.symlinkJoin {
-    name = "rofi-select";
-    paths = [nixpkgs.pkgs.rofi];
-    buildInputs = [nixpkgs.makeWrapper nixpkgs.pkgs.glibcLocales];
-    postBuild = ''
-      wrapProgram $out/bin/rofi \
-        --add-flags "-dmenu -i -format i -markup-rows" \
-        --set LOCALE_ARCHIVE "${nixpkgs.pkgs.glibcLocales}/lib/locale/locale-archive"
-    '';
-  };
+  rofi =
+    let
+      minFlags = "-dmenu -i -markup-rows -format i -async-pre-read 25 -p X";
+      font = "${fonts.info.pragmatapro.pragmatapro.face} 18";
+      # bg, fg, bgalt, hlbg, hlfg
+      normal = "${theme.background},${theme.foreground},${theme.background},${theme.color0},${theme.color15}";
+      # bg, border, separator
+      window = "${theme.background},${theme.foreground},${theme.foreground}";
+      rofiTheme = "-font \"${font}\" -color-normal \"${normal}\" -color-window \"${window}\"";
+    in nixpkgs.symlinkJoin {
+        name = "rofi-select";
+        paths = [nixpkgs.pkgs.rofi];
+        buildInputs = [nixpkgs.makeWrapper nixpkgs.pkgs.glibcLocales];
+        postBuild = ''
+          wrapProgram $out/bin/rofi \
+            --add-flags '${minFlags} ${rofiTheme}' \
+            --set LOCALE_ARCHIVE "${nixpkgs.pkgs.glibcLocales}/lib/locale/locale-archive"
+        '';
+      };
 
   xaltt = pkgs: oldpkgs.pkgs.callPackage ./xalt {
     nixpkgs = pkgs;
