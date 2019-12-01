@@ -70,6 +70,7 @@ let
     else if builtins.hasAttr "float" cmd then "command: float"
     else if builtins.hasAttr "sink" cmd then "command: sink"
     else if builtins.hasAttr "scratch" cmd then "command: scratch: " + quote cmd.scratch
+    else if builtins.hasAttr "hide" cmd then "command: hide"
     else builtins.throw "bad xalt command";
 
   rules = rls :

@@ -112,6 +112,7 @@ let
         (keybind "M-m"                         { magnify = {}; }        "Magnify window")
         (keybind "M-g"                         { fullscreen = {}; }     "Fullscreen window")
         (keybind "M-S-4"                       (spawn screenshotSel)    "Take screenshot with selection")
+        (keybind "M-S-h"                       { hide = {}; }           "Hide scratchpad")
 
         # Prompts and launchers
         (keybind "M-o"                         (spawn rofiDrun)         "Launch XDG application")
