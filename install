@@ -1,2 +1,2 @@
 #!/bin/sh
-nix-env -f default.nix -i nix-config
+nix-env --max-jobs 16 -f default.nix -i nix-config

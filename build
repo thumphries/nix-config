@@ -1,2 +1,2 @@
 #!/bin/sh
-nix-build .
+nix-build --max-jobs 16 .
