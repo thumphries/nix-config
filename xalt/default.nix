@@ -5,6 +5,8 @@ let
   defaultConfig = {
     general = {
       terminal = "xterm";
+      selector = "dmenu";
+      prompt = "dmenu";
       border-width = 1;
       border-color = "#000000";
       border-color-focused = "#FEFEFE";
@@ -37,6 +39,7 @@ let
       general:
         terminal: ${quote cfg.general.terminal}
         selector: ${quote cfg.general.selector}
+        prompt: ${quote cfg.general.prompt}
         border-width: ${toString cfg.general.border-width}
         border-color: ${quote cfg.general.border-color}
         border-color-focused: ${quote cfg.general.border-color-focused}

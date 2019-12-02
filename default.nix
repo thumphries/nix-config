@@ -44,12 +44,12 @@ let
 
   rofi =
     let
-      minFlags = "-markup-rows -async-pre-read 25 -scroll-method 1 -p X";
+      minFlags = "-markup-rows -async-pre-read 25 -scroll-method 1";
       font = "${fonts.info.pragmatapro.pragmatapro.face} 18";
       # bg, fg, bgalt, hlbg, hlfg
       normal = "${theme.background},${theme.foreground},${theme.background},${theme.color0},${theme.color15}";
       # bg, border, separator
-      window = "${theme.background},${theme.foreground},${theme.foreground}";
+      window = "${theme.background},${theme.foreground},${theme.color0}";
       rofiTheme = "-font \"${font}\" -color-normal \"${normal}\" -color-window \"${window}\"";
     in nixpkgs.symlinkJoin {
         name = "rofi";
@@ -60,14 +60,23 @@ let
             --add-flags '${minFlags} ${rofiTheme}' \
             --set LOCALE_ARCHIVE "${nixpkgs.pkgs.glibcLocales}/lib/locale/locale-archive"
 
-          makeWrapper $out/bin/rofi $out/bin/rofi-select --add-flags '-dmenu -i -format i'
-          makeWrapper $out/bin/rofi $out/bin/rofi-select-multi --add-flags '-dmenu -i -format i -multi-select'
-          makeWrapper $out/bin/rofi $out/bin/rofi-run --add-flags '-modi run -show run -show-icons'
-          makeWrapper $out/bin/rofi $out/bin/rofi-drun --add-flags '-modi drun -show drun -show-icons'
-          makeWrapper $out/bin/rofi $out/bin/rofi-window --add-flags '-modi window,windowcd -show window'
-          makeWrapper $out/bin/rofi $out/bin/rofi-windowcd --add-flags '-modi window,windowcd -show windowcd'
+          makeWrapper $out/bin/rofi $out/bin/rofi-prompt \
+            --add-flags '-dmenu -l 0 -p prompt'
+          makeWrapper $out/bin/rofi $out/bin/rofi-select \
+            --add-flags '-dmenu -i -format i -p select'
+          makeWrapper $out/bin/rofi $out/bin/rofi-select-multi \
+            --add-flags '-dmenu -i -format i -multi-select -p select'
+          makeWrapper $out/bin/rofi $out/bin/rofi-run \
+            --add-flags '-modi run -show run -show-icons -p run'
+          makeWrapper $out/bin/rofi $out/bin/rofi-drun \
+            --add-flags '-modi drun -show drun -show-icons -p launch'
+          makeWrapper $out/bin/rofi $out/bin/rofi-window \
+            --add-flags '-modi window,windowcd -show window -p window'
+          makeWrapper $out/bin/rofi $out/bin/rofi-windowcd \
+            --add-flags '-modi window,windowcd -show windowcd -p window'
         '';
       };
+  rofiPrompt = ''${rofi}/bin/rofi-prompt'';
   rofiRun = ''${rofi}/bin/rofi-run'';
   rofiDrun = ''${rofi}/bin/rofi-drun'';
   rofiWindow = ''${rofi}/bin/rofi-window'';
@@ -81,7 +90,8 @@ let
     config = {
       general = {
         terminal = ''${term}'';
-        selector = ''${rofi}/bin/rofi-select'';
+        selector = ''${rofiSelect}'';
+        prompt = ''${rofiPrompt}'';
         border-width = 5;
         border-color = ''${theme.foreground}'';
         border-color-focused = ''${theme.color4}'';
