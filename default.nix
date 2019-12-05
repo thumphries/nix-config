@@ -256,6 +256,9 @@ in
       nixpkgs.pkgs.ripgrep
       nixpkgs.pkgs.sd
 
+      # scripting
+      nixpkgs.pkgs.shellcheck
+
       # benchmarking
       nixpkgs.pkgs.haskellPackages.bench
       nixpkgs.pkgs.hyperfine
