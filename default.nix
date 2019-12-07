@@ -42,6 +42,8 @@ let
     };
   };
 
+  emacs = nixpkgs.pkgs.callPackage ./emacs {};
+
   rofi =
     let
       minFlags = "-markup-rows -async-pre-read 25 -scroll-method 1";
@@ -237,7 +239,7 @@ in
       nixpkgs.pkgs.awscli
       nixpkgs.pkgs.aws-vault
 
-      nixpkgs.pkgs.emacs
+      emacs
       nixpkgs.pkgs.direnv
       nixpkgs.pkgs.fzf
 
