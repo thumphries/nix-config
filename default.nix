@@ -42,7 +42,38 @@ let
     };
   };
 
+  term = ''${termite}/bin/termite'';
+  runInTerminal = cmd : ''${term} -e "${cmd}"'';
+  runInTerminalHold = cmd : ''${term} -e "${cmd}" --hold'';
+
   emacs = nixpkgs.pkgs.callPackage ./emacs {};
+  emacsWorkspaceSession =
+    nixpkgs.writeTextFile {
+        name = "emacs-xalt";
+        executable = true;
+        destination = "/bin/emacs-xalt";
+        text = ''
+          #!/bin/sh -eu
+          EMACS_SESSION="''${XALT_WORKSPACE}"
+          export EMACS_SESSION
+          ${emacs}/bin/emacs-session ensure
+          ${emacs}/bin/emacs-session client -nw "$@"
+        '';
+      };
+
+  emacsProjectFile =
+    nixpkgs.writeTextFile {
+        name = "emacs-xalt-project-open";
+        executable = true;
+        destination = "/bin/emacs-xalt-project-open";
+        text = ''
+          #!/bin/sh -eu
+          git ls-files | fzf | xargs emacs-xalt
+        '';
+      };
+
+  emacsNewFrame = runInTerminal ''${emacsWorkspaceSession}/bin/emacs-xalt'';
+  emacsGitFile = runInTerminal ''${emacsProjectFile}/bin/emacs-xalt-project-open'';
 
   rofi =
     let
@@ -138,6 +169,10 @@ let
         (keybind "M-u"                         (scratch "firefox")      "")
         (keybind "M-S-u"                       (scratch "firefox-work") "")
         (keybind "M-i"                         (scratch "ncmpcpp")      "")
+
+        # Emacs
+        (keybind "M-\\\\"                      (spawn emacsNewFrame)    "New emacs frame")
+        (keybind "M-S-\\\\"                    (spawn emacsGitFile)     "Open a project file in a new emacs frame")
       ];
       rules = [
         { selector = { class = promptClass; }; action = { rect = promptRect; }; }
@@ -195,8 +230,6 @@ let
   autorandr = ''${nixpkgs.pkgs.autorandr}/bin/autorandr --change --default default --skip-options=gamma'';
   screenshotSel = ''${pkgs.screenshot}/bin/screenshot'';
 
-  term = ''${termite}/bin/termite'';
-
   termRect = {
     x = 0.1;
     y = 0.1;
@@ -240,6 +273,10 @@ in
       nixpkgs.pkgs.aws-vault
 
       emacs
+      emacsWorkspaceSession
+      emacsGitFile
+      emacsProjectFile
+
       nixpkgs.pkgs.direnv
       nixpkgs.pkgs.fzf
 
