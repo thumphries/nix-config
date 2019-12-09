@@ -109,6 +109,6 @@ esac
 in
   symlinkJoin {
       name = "emacs-session";
-      paths = [sessionScript];
+      paths = [ emacs sessionScript ];
       buildInputs = [ emacs moreutils ];
   }
