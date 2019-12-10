@@ -1,2 +1,3 @@
-#!/bin/sh
+#!/bin/sh -eu
 nix-env --max-jobs 16 -f default.nix -i nix-config
+go-strict
