@@ -275,9 +275,9 @@ let
       }
       {
         name = "hound";
-        package = "github.com/hound-search/hound";
-        revision = "838e045826122e47b299b44e9d7f0944a532c008";
-        sha = "ffd906152ab5aebb91ae6568317d8e4fc7950b63";
+        package = "github.com/thumphries/hound";
+        revision = "8d548222b98419ef05f1e0f11a5f9d06cc0f15be";
+        sha = "ffa638b4f36509c6df21b105c187af48640c5f15";
         binaries = ["hound" "houndd"];
       }
     ];
