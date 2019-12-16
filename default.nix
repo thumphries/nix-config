@@ -273,6 +273,13 @@ let
         sha = "49de074784f3b08a764bbe453db893e7d7dfe78a";
         binaries = ["wtf"];
       }
+      {
+        name = "hound";
+        package = "github.com/hound-search/hound";
+        revision = "838e045826122e47b299b44e9d7f0944a532c008";
+        sha = "ffd906152ab5aebb91ae6568317d8e4fc7950b63";
+        binaries = ["hound" "houndd"];
+      }
     ];
   };
 in

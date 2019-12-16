@@ -1,2 +1,3 @@
 #!/bin/sh
 nix-build --max-jobs 16 .
+./result/bin/go-strict

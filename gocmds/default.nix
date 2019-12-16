@@ -5,7 +5,7 @@ let
       executable = true;
       destination = "/bin/go-lazy-build";
       text = ''
-        #!/bin/sh -eu
+        #!/bin/sh -eux
         PKG=$1
         REV=$2
         SHA=$3
@@ -32,14 +32,19 @@ let
         check_it () {
           GOT=$(hash_it)
           if [ ! "$GOT" = "$SHA" ]; then
-            echo "EXPECT: $SHA"
-            echo "ACTUAL: $GOT"
-            echo "Source tree did not hash properly"
+            >&2 echo "EXPECT: $SHA"
+            >&2 echo "ACTUAL: $GOT"
+            >&2 echo "Source tree did not hash properly"
             exit 1
           fi
         }
 
         check_it
+
+        if [ ! -f go.mod ]; then
+          ${go}/bin/go mod init "$PKG"
+        fi
+
         ${go}/bin/go mod download
         ${go}/bin/go mod verify
 
