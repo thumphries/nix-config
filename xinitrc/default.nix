@@ -4,6 +4,7 @@
 let
   script = writeShellScriptBin "session" ''
     set -euo pipefail
+    export XDG_DATA_HOME=$HOME/.nix-profile/share
     ${xsetroot}/bin/xsetroot -cursor_name left_ptr
     ${setxkbmap}/bin/setxkbmap -option ctrl:nocaps
     ${xset}/bin/xset r rate 180 25
