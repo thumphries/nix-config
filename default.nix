@@ -480,6 +480,8 @@ in
       nixpkgs.pkgs.direnv
       nixpkgs.pkgs.fzf
 
+      nixpkgs.pkgs.htop
+
       # haskell
       nixpkgs.pkgs.ghc
       nixpkgs.pkgs.ghcid
