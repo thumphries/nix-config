@@ -280,6 +280,13 @@ let
         sha = "ffa638b4f36509c6df21b105c187af48640c5f15";
         binaries = ["hound" "houndd"];
       }
+      {
+        name = "todoist";
+        package = "github.com/sachaos/todoist";
+        revision = "ef5aa3d1bfee7823f266b2d205acf87d28e3b7b1";
+        sha = "ad0bd617d4fdfd96708f8d4855850c3fb4b4a2a9";
+        binaries = ["todoist"];
+      }
     ];
   };
 in
