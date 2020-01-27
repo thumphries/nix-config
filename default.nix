@@ -151,6 +151,59 @@ let
         '';
       };
 
+  dunst =
+    nixpkgs.symlinkJoin {
+      name = "dunst";
+      paths = [nixpkgs.pkgs.dunst dunstrc];
+      buildInputs = [nixpkgs.makeWrapper];
+      postBuild = ''
+        wrapProgram $out/bin/dunst --add-flags '-config ${dunstrc}/etc/dunstrc'
+      '';
+    };
+
+  # notifications
+  dunstrc =
+    nixpkgs.writeTextFile {
+        name = "dunstrc";
+        executable = false;
+        destination = "/etc/dunstrc";
+        text = ''
+          [frame]
+              width = 0
+              color = "#212121"
+
+          [urgency_low]
+              background = "#000000"
+              foreground = "#ffffff"
+              timeout = 10
+
+          [urgency_normal]
+              background = "#212121"
+              foreground = "#ffffff"
+              timeout = 10
+
+          [urgency_critical]
+              background = "#fbc02d"
+              foreground = "#000000"
+              timeout = 0
+
+          [global]
+              format = "<big><b>%s</b></big>\n%b\n%p\n"
+              geometry = "300x5-50+75"
+              font = Cantarell 12
+              transparency = 10
+              allow_markup = yes
+              alignment = center
+              separator_height = 2
+              padding = 8
+              horizontal_padding = 8
+              separator_color = frame
+
+          [shortcuts]
+              close_all = ctrl+space
+        '';
+      };
+
   xaltt = pkgs: oldpkgs.pkgs.callPackage ./xalt {
     nixpkgs = pkgs;
     themes = themes;
@@ -292,6 +345,7 @@ let
     autolocker = autolocker;
     batwatch = batwatch;
     compton = compton;
+    dunst = dunst;
     xalt = xalt;
     xsettingsd = xsettingsd;
   };
@@ -396,7 +450,6 @@ in
 
       # x11
       nixpkgs.pkgs.autorandr
-      nixpkgs.pkgs.dunst
       nixpkgs.pkgs.libnotify
       nixpkgs.pkgs.nitrogen
       nixpkgs.pkgs.redshift
@@ -407,6 +460,7 @@ in
       arbtt
       autolocker
       batwatch
+      dunst
       xalt
       xinitrc
       xsettingsd
