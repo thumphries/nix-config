@@ -1,5 +1,5 @@
 { stdenv, symlinkJoin, writeShellScriptBin
-, arbtt, autorandr, compton, redshift, setxkbmap
+, arbtt, autolocker, autorandr, compton, dunst, redshift, setxkbmap
 , xalt, xset, xsetroot, xsettingsd }:
 let
   script = writeShellScriptBin "session" ''
@@ -16,6 +16,8 @@ let
     ${xsettingsd}/bin/xsettingsd &
     ${compton}/bin/compton -b &
     ${arbtt}/bin/arbtt-capture &
+    ${dunst}/bin/dunst &>/dev/null &
+    ${autolocker}/bin/autolocker &
     ${xalt}/bin/xbar &
     ${xalt}/bin/xalt
   '';

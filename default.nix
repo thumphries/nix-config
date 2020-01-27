@@ -117,6 +117,21 @@ let
   rofiSelect = ''${rofi}/bin/rofi-select'';
   rofiSelectMulti = ''${rofi}/bin/rofi-select-multi'';
 
+  # automatic screen locking
+  autolocker =
+    nixpkgs.symlinkJoin {
+      name = "autolocker";
+      paths = [nixpkgs.pkgs.xidlehook];
+      buildInputs = [nixpkgs.makeWrapper nixpkgs.pkgs.xidlehook];
+      postBuild = ''
+        OPTS='--not-when-fullscreen'
+        TIMER1="--timer 60 'notify-send -t 9000 autolocker \"locking soon\"' true"
+        TIMER2="--timer 10 '/usr/bin/env lockscreen || /usr/bin/env slock' true"
+        makeWrapper $out/bin/xidlehook $out/bin/autolocker \
+          --add-flags "$OPTS $TIMER1 $TIMER2"
+      '';
+    };
+
   xaltt = pkgs: oldpkgs.pkgs.callPackage ./xalt {
     nixpkgs = pkgs;
     themes = themes;
@@ -255,6 +270,7 @@ let
 
   xinitrc = nixpkgs.pkgs.callPackage ./xinitrc {
     arbtt = arbtt;
+    autolocker = autolocker;
     compton = compton;
     xalt = xalt;
     xsettingsd = xsettingsd;
@@ -360,13 +376,16 @@ in
 
       # x11
       nixpkgs.pkgs.autorandr
+      nixpkgs.pkgs.dunst
+      nixpkgs.pkgs.libnotify
       nixpkgs.pkgs.nitrogen
       nixpkgs.pkgs.redshift
       nixpkgs.pkgs.xclip
-      nixpkgs.pkgs.xidlehook
+      #nixpkgs.pkgs.xidlehook
       pkgs.acpilight
       pkgs.screenshot
       arbtt
+      autolocker
       xalt
       xinitrc
       xsettingsd
