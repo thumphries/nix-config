@@ -1,5 +1,6 @@
 { stdenv, symlinkJoin, writeShellScriptBin
-, arbtt, autolocker, autorandr, batwatch, compton, dunst, redshift, setxkbmap
+, arbtt, autolocker, autorandr, batwatch, compton
+, dunst, nitrogen, redshift, setxkbmap
 , xalt, xset, xsetroot, xsettingsd }:
 let
   script = writeShellScriptBin "session" ''
@@ -20,6 +21,8 @@ let
     ${dunst}/bin/dunst &>/dev/null &
     ${autolocker}/bin/autolocker &
     ${batwatch}/bin/batwatch &
+    (${nitrogen}/bin/nitrogen --restore || true) &
+    eval $(ssh-agent || true) &
     ${xalt}/bin/xbar &
     ${xalt}/bin/xalt
   '';
