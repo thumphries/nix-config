@@ -132,6 +132,25 @@ let
       '';
     };
 
+  # low battery -> notify-send
+  batwatch =
+    nixpkgs.writeTextFile {
+        name = "batwatch";
+        executable = true;
+        destination = "/bin/batwatch";
+        text = ''
+          #!/bin/sh -eu
+          while true; do
+            battery_level=`acpi -b | grep -P -o '[0-9]+(?=%)'`
+            if [ $battery_level -le 5 ]
+            then
+                notify-send -u critical -t 10000 "Low Battery" "Battery down to ''${battery_level}%!"
+            fi
+            sleep 60
+          done
+        '';
+      };
+
   xaltt = pkgs: oldpkgs.pkgs.callPackage ./xalt {
     nixpkgs = pkgs;
     themes = themes;
@@ -271,6 +290,7 @@ let
   xinitrc = nixpkgs.pkgs.callPackage ./xinitrc {
     arbtt = arbtt;
     autolocker = autolocker;
+    batwatch = batwatch;
     compton = compton;
     xalt = xalt;
     xsettingsd = xsettingsd;
@@ -386,6 +406,7 @@ in
       pkgs.screenshot
       arbtt
       autolocker
+      batwatch
       xalt
       xinitrc
       xsettingsd

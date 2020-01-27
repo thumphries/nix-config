@@ -1,5 +1,5 @@
 { stdenv, symlinkJoin, writeShellScriptBin
-, arbtt, autolocker, autorandr, compton, dunst, redshift, setxkbmap
+, arbtt, autolocker, autorandr, batwatch, compton, dunst, redshift, setxkbmap
 , xalt, xset, xsetroot, xsettingsd }:
 let
   script = writeShellScriptBin "session" ''
@@ -18,6 +18,7 @@ let
     ${arbtt}/bin/arbtt-capture &
     ${dunst}/bin/dunst &>/dev/null &
     ${autolocker}/bin/autolocker &
+    ${batwatch}/bin/batwatch &
     ${xalt}/bin/xbar &
     ${xalt}/bin/xalt
   '';
