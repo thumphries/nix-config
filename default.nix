@@ -251,7 +251,10 @@ let
 
   xsettingsd = nixpkgs.pkgs.callPackage ./xsettingsd {};
 
+  arbtt = nixpkgs.pkgs.haskellPackages.arbtt;
+
   xinitrc = nixpkgs.pkgs.callPackage ./xinitrc {
+    arbtt = arbtt;
     compton = compton;
     xalt = xalt;
     xsettingsd = xsettingsd;
@@ -315,6 +318,7 @@ in
 
       # haskell
       nixpkgs.pkgs.ghc
+      nixpkgs.pkgs.ghcid
 
       # go tools
       gocmds
@@ -362,6 +366,7 @@ in
       nixpkgs.pkgs.xidlehook
       pkgs.acpilight
       pkgs.screenshot
+      arbtt
       xalt
       xinitrc
       xsettingsd

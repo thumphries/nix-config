@@ -1,5 +1,6 @@
 { stdenv, symlinkJoin, writeShellScriptBin
-, autorandr, compton, redshift, setxkbmap, xalt, xset, xsetroot, xsettingsd }:
+, arbtt, autorandr, compton, redshift, setxkbmap
+, xalt, xset, xsetroot, xsettingsd }:
 let
   script = writeShellScriptBin "session" ''
     set -euo pipefail
@@ -14,6 +15,7 @@ let
     ${redshift}/bin/redshift &
     ${xsettingsd}/bin/xsettingsd &
     ${compton}/bin/compton -b &
+    ${arbtt}/bin/arbtt-capture &
     ${xalt}/bin/xbar &
     ${xalt}/bin/xalt
   '';
