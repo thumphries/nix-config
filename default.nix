@@ -465,6 +465,23 @@ in
     paths = [
       nixpkgs.pkgs.glibcLocales
 
+      # base utils
+      nixpkgs.pkgs.htop
+      nixpkgs.pkgs.tmux
+
+      # git et al
+      nixpkgs.pkgs.cacert
+      nixpkgs.pkgs.git
+      nixpkgs.pkgs.git-lfs
+      nixpkgs.pkgs.tig
+
+      # fancy coreutils replacements
+      nixpkgs.pkgs.bat
+      nixpkgs.pkgs.fd
+      nixpkgs.pkgs.exa
+      nixpkgs.pkgs.ripgrep
+      nixpkgs.pkgs.sd
+
       fztz
       glirc
 
@@ -488,19 +505,6 @@ in
 
       # go tools
       gocmds
-
-      # git et al
-      nixpkgs.pkgs.cacert
-      nixpkgs.pkgs.git
-      nixpkgs.pkgs.git-lfs
-      nixpkgs.pkgs.tig
-
-      # fancy coreutils replacements
-      nixpkgs.pkgs.bat
-      nixpkgs.pkgs.fd
-      nixpkgs.pkgs.exa
-      nixpkgs.pkgs.ripgrep
-      nixpkgs.pkgs.sd
 
       # scripting
       nixpkgs.pkgs.shellcheck
@@ -561,5 +565,8 @@ in
       nixpkgs.pkgs.imagemagick
       nixpkgs.pkgs.potrace
       nixpkgs.pkgs.librsvg
+
+      # work?
+      nixpkgs.pkgs.zoom-us
     ];
   }
