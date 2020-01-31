@@ -498,6 +498,7 @@ in
       nixpkgs.pkgs.fzf
 
       nixpkgs.pkgs.htop
+      nixpkgs.pkgs.tree
 
       # haskell
       nixpkgs.pkgs.ghc
@@ -536,11 +537,9 @@ in
       nixpkgs.pkgs.redshift
       nixpkgs.pkgs.xclip
       #nixpkgs.pkgs.xidlehook
-      pkgs.acpilight
       pkgs.screenshot
       arbtt
       autolocker
-      batwatch
       dunst
       xalt
       xinitrc
@@ -551,6 +550,11 @@ in
       fzmenu
       rofi
       termite
+
+      # laptop problems
+      nixpkgs.pkgs.acpi
+      batwatch
+      pkgs.acpilight
 
       # web
       nixpkgs.pkgs.firefox
@@ -567,6 +571,6 @@ in
       nixpkgs.pkgs.librsvg
 
       # work?
-      nixpkgs.pkgs.zoom-us
+      #nixpkgs.pkgs.zoom-us
     ];
   }
