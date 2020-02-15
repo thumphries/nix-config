@@ -338,7 +338,74 @@ let
 
   xsettingsd = nixpkgs.pkgs.callPackage ./xsettingsd {};
 
-  arbtt = nixpkgs.pkgs.haskellPackages.arbtt;
+  arbtt =
+    nixpkgs.symlinkJoin {
+      name = "arbtt-configured";
+      paths = [nixpkgs.pkgs.haskellPackages.arbtt arbttCfg];
+      buildInputs = [nixpkgs.makeWrapper];
+      postBuild = ''
+        wrapProgram $out/bin/arbtt-stats \
+          --add-flags "--categorizefile=${arbttCfg}/etc/arbtt/categorize.cfg"
+        makeWrapper $out/bin/arbtt-stats $out/bin/arbtt-program-stats \
+          --add-flags "-c Program"
+        makeWrapper $out/bin/arbtt-stats $out/bin/arbtt-desktop-stats \
+          --add-flags "-c Desktop"
+        makeWrapper $out/bin/arbtt-stats $out/bin/arbtt-time-stats \
+          --add-flags "-c Time"
+      '';
+    };
+
+  arbttCfg =
+    nixpkgs.writeTextFile {
+        name = "categorize.cfg";
+        executable = false;
+        destination = "/etc/arbtt/categorize.cfg";
+        text = ''
+        -- -*- mode: haskell; -*-
+
+        -- A rule that probably everybody wants. Being inactive for over a minute
+        -- causes this sample to be ignored by default.
+        $idle > 60 ==> tag inactive,
+
+
+        -- Simple rule that just tags the current program
+        tag Program:$current.program,
+
+        -- Another simple rule, just tags the current desktop (a.k.a. workspace)
+        tag Desktop:$desktop,
+
+        current window $title =~ /^(.*) - Mozilla Firefox$/ ==> tag Web,
+        current window $title =~ /^(.*)Twitter - Mozilla Firefox$/ ==> tag Web:Twitter,
+        current window $title =~ /^(.*)Fastmail - Mozilla Firefox$/ ==> tag Web:Mail,
+        current window $title =~ /^(.*)Todoist - Mozilla Firefox$/ ==> tag Web:Todoist,
+
+
+        -- githubs
+        -- OrgName/project: description - Mozilla Firefox
+        -- projectname/filepath at master · OrgName/project - Mozilla Firefox
+        -- PR title by prauthor · Pull Request #223 · OrgName/project - Mozilla Firefox
+
+        -- slacks
+        -- current window $title =~ /^Slack (.*) - Mozilla Firefox$/ ==> tag Web:Slack,
+
+        -- zooms
+
+        current window $program =~ /termite/ ==> tag Term,
+
+
+        -- $time evaluates to local time.
+
+        $time >=  8:00 && $time < 10:00 ==> tag Time:Early,
+        $time >= 10:00 && $time < 14:00 ==> tag Time:Morning,
+        $time >= 14:00 && $time < 18:30 ==> tag Time:Afternoon,
+        $time >= 18:30 && $time < 23:00 ==> tag Time:Evening,
+        $time >= 23:00 || $time <  6:00 ==> tag Time:Night,
+
+        -- This tag always refers to the last 24h
+        -- $sampleage <= 24:00 ==> tag last-day,
+        '';
+      };
+
 
   xinitrc = nixpkgs.pkgs.callPackage ./xinitrc {
     arbtt = arbtt;
