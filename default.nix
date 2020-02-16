@@ -447,6 +447,13 @@ let
         sha = "ad0bd617d4fdfd96708f8d4855850c3fb4b4a2a9";
         binaries = ["todoist"];
       }
+      {
+        name = "gh";
+        package = "github.com/cli/cli";
+        revision = "96dc4376a17fe26c8fe6a82891f610d35095d836"; # v0.5.5
+        sha = "20d4a324b8aec11c4ec3a411556d9ff461d562da";
+        binaries = ["gh"];
+      }
     ];
   };
 in
