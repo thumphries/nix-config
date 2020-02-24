@@ -490,6 +490,7 @@ in
       # git et al
       nixpkgs.pkgs.cacert
       nixpkgs.pkgs.git
+      nixpkgs.pkgs.git-lfs
       nixpkgs.pkgs.tig
 
       # fancy coreutils replacements
