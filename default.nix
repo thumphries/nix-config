@@ -558,5 +558,6 @@ in
       # image manipulation
       nixpkgs.pkgs.imagemagick
       nixpkgs.pkgs.potrace
+      nixpkgs.pkgs.librsvg
     ];
   }
