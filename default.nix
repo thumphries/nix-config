@@ -554,5 +554,9 @@ in
 
       # db
       nixpkgs.pkgs.sqlite
+
+      # image manipulation
+      nixpkgs.pkgs.imagemagick
+      nixpkgs.pkgs.potrace
     ];
   }
