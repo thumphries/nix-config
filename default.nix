@@ -338,11 +338,13 @@ let
 
   xsettingsd = nixpkgs.pkgs.callPackage ./xsettingsd {};
 
+  # arbtt broken on master
+  arbttpkgs = pinned "/nixpkgs.arbtt.json";
   arbtt =
     nixpkgs.symlinkJoin {
       name = "arbtt-configured";
-      paths = [nixpkgs.pkgs.haskellPackages.arbtt arbttCfg];
-      buildInputs = [nixpkgs.makeWrapper];
+      paths = [arbttpkgs.pkgs.haskellPackages.arbtt arbttCfg];
+      buildInputs = [arbttpkgs.makeWrapper];
       postBuild = ''
         wrapProgram $out/bin/arbtt-stats \
           --add-flags "--categorizefile=${arbttCfg}/etc/arbtt/categorize.cfg"
