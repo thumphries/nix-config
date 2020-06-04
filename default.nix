@@ -38,7 +38,7 @@ let
       theme = theme;
       font-face = fonts.info.pragmatapro.pragmatapro.face;
       font-style = fonts.info.pragmatapro.pragmatapro.styles.regular;
-      font-size = 14;
+      font-size = 16;
     };
   };
 
