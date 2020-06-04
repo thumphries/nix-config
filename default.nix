@@ -279,7 +279,7 @@ let
         }
         {
           name = "firefox";
-          command = "firefox --class=foxpad";
+          command = "firefox -p default --class=foxpad";
           selector = { class = "foxpad";};
           action = { tile = {}; };
         }
