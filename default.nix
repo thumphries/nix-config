@@ -125,8 +125,8 @@ let
       buildInputs = [nixpkgs.makeWrapper nixpkgs.pkgs.xidlehook];
       postBuild = ''
         OPTS='--not-when-fullscreen'
-        TIMER1="--timer 60 'notify-send -t 9000 autolocker \"locking soon\"' true"
-        TIMER2="--timer 10 '/usr/bin/env lockscreen || /usr/bin/env slock' true"
+        TIMER1="--timer 300 'notify-send -t 9000 autolocker \"locking soon\"' true"
+        TIMER2="--timer 30 '/usr/bin/env lockscreen || /usr/bin/env slock' true"
         makeWrapper $out/bin/xidlehook $out/bin/autolocker \
           --add-flags "$OPTS $TIMER1 $TIMER2"
       '';
