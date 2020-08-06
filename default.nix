@@ -493,12 +493,19 @@ in
       nixpkgs.pkgs.git-lfs
       nixpkgs.pkgs.tig
 
-      # fancy coreutils replacements
+      # "zoomer unix"
       nixpkgs.pkgs.bat
       nixpkgs.pkgs.fd
       nixpkgs.pkgs.exa
       nixpkgs.pkgs.ripgrep
       nixpkgs.pkgs.sd
+      nixpkgs.pkgs.du-dust
+      nixpkgs.pkgs.tokei
+      #nixpkgs.pkgs.ytop
+      #nixpkgs.pkgs.tealdeer
+      #nixpkgs.pkgs.bandwhich
+      #nixpkgs.pkgs.grex
+      #nixpkgs.pkgs.procs
 
       # scripting
       nixpkgs.pkgs.shellcheck
