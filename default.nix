@@ -8,7 +8,7 @@ let
         owner = "NixOS";
         repo = "nixpkgs";
         inherit (json) rev sha256;
-      }) { config = { }; };
+      }) { config = { allowUnfree = true; }; };
 
   # Stuck in the past
   oldpkgs = pinned "/nixpkgs.old.json";
@@ -74,6 +74,22 @@ let
 
   emacsNewFrame = runInTerminal ''${emacsWorkspaceSession}/bin/emacs-xalt'';
   emacsGitFile = runInTerminal ''${emacsProjectFile}/bin/emacs-xalt-project-open'';
+
+  vscode-extensions = (with nixpkgs.vscode-extensions; [
+      bbenoist.Nix
+      ms-python.python
+      ms-azuretools.vscode-docker
+      ms-vscode-remote.remote-ssh
+    ]) ++ nixpkgs.vscode-utils.extensionsFromVscodeMarketplace [{
+      name = "remote-ssh-edit";
+      publisher = "ms-vscode-remote";
+      version = "0.47.2";
+      sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+  }];
+
+  vscode = nixpkgs.vscode-with-extensions.override {
+      vscodeExtensions = vscode-extensions;
+    };
 
   rofi =
     let
@@ -574,5 +590,6 @@ in
 
       # work?
       #nixpkgs.pkgs.zoom-us
+      vscode
     ];
   }
