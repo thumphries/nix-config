@@ -4,7 +4,6 @@ let
     cantarell = pkgs.callPackage ./cantarell.nix {};
     font-awesome = pkgs.callPackage ./font-awesome.nix {};
     pragmatapro = pkgs.callPackage ./pragmatapro.nix { private = private; };
-    profont = pkgs.callPackage ./profont.nix {};
     source-code-pro = pkgs.callPackage ./source-code-pro.nix {};
     source-sans-pro = pkgs.callPackage ./source-sans-pro.nix {};
     terminus = pkgs.callPackage ./terminus.nix {};
