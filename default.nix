@@ -528,6 +528,7 @@ in
       # sound
       nixpkgs.pkgs.pamixer
       nixpkgs.pkgs.playerctl
+      nixpkgs.pkgs.pavucontrol
 
       # mpd
       nixpkgs.pkgs.mpd
@@ -566,6 +567,8 @@ in
 
       # networking
       nixpkgs.pkgs.networkmanager_dmenu
+      nixpkgs.pkgs.traceroute
+      nixpkgs.pkgs.tcptraceroute
 
       # db
       nixpkgs.pkgs.sqlite
