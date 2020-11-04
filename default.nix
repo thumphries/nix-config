@@ -490,6 +490,7 @@ in
       # aws
       nixpkgs.pkgs.awscli
       nixpkgs.pkgs.aws-vault
+      nixpkgs.pkgs.aws-okta
 
       emacs
       emacsWorkspaceSession
