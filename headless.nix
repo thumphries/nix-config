@@ -30,6 +30,17 @@ let
       }
     ];
   };
+
+  # May require 'git config core.sshCommand ssh'
+  sshWrapper = nixpkgs.pkgs.writeTextFile {
+    name = "ssh-wrapper";
+    executable = true;
+    destination = "/bin/ssh";
+    text = ''
+#!/bin/sh -eu
+BINARY_SSH=/usr/bin/ssh ssh-ident "$@"
+    '';
+  };
 in
   with nixpkgs;
   pkgs.buildEnv rec {
@@ -53,8 +64,8 @@ in
       pkgs.git-lfs
       pkgs.tig
 
-      pkgs.ssh
       pkgs.ssh-ident
+      sshWrapper
 
       pkgs.direnv
       pkgs.fzf
