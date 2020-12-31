@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+nix-env --max-jobs 16 -f headless.nix -i thumphries-min
+go-strict
