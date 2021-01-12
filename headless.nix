@@ -31,7 +31,7 @@ let
     ];
   };
 
-  # May require 'git config core.sshCommand ssh'
+  # May require 'git config --global core.sshCommand ssh'
   sshWrapper = nixpkgs.pkgs.writeTextFile {
     name = "ssh-wrapper";
     executable = true;
@@ -72,6 +72,7 @@ in
 
       pkgs.jq
       pkgs.jid
+      pkgs.pup
 
       gocmds
 
