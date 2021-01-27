@@ -49,7 +49,8 @@ in
     paths = [
       pkgs.glibcLocales
 
-      pkgs.emacs
+      pkgs.coreutils
+      pkgs.tree
 
       pkgs.bat
       pkgs.fd
@@ -73,6 +74,8 @@ in
       pkgs.jq
       pkgs.jid
       pkgs.pup
+
+      pkgs.emacs
 
       gocmds
 
