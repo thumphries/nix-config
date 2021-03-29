@@ -74,6 +74,7 @@ in
       pkgs.jq
       pkgs.jid
       pkgs.pup
+      pkgs.yq-go
 
       pkgs.emacs
 
@@ -87,6 +88,11 @@ in
 
       pkgs.awscli
       pkgs.aws-vault
-      pkgs.python
+
+      pkgs.python38
+      pkgs.python38Packages.pip
+
+      pkgs.hexedit
+      pkgs.hexyl
     ];
   }
