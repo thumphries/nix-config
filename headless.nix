@@ -81,8 +81,9 @@ in
       gocmds
 
       pkgs.shellcheck
-
       pkgs.imagemagick
+      pkgs.graphviz
+      pkgs.libfsm
 
       pkgs.ghc
 
