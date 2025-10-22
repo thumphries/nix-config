@@ -12,6 +12,7 @@ let
 
   # Stuck in the past
   oldpkgs = pinned "/nixpkgs.old.json";
+  oldishpkgs = pinned "/nixpkgs.oldish.json";
   glirc =
     (oldpkgs.pkgs.haskellPackages.extend (self: super: {vty = self.vty_5_25_1;})).glirc;
   pkgs = oldpkgs.pkgs.callPackage ./pkgs {};
@@ -339,9 +340,9 @@ let
   xsettingsd = nixpkgs.pkgs.callPackage ./xsettingsd {};
 
   arbtt =
-    nixpkgs.symlinkJoin {
+    oldishpkgs.symlinkJoin {
       name = "arbtt-configured";
-      paths = [nixpkgs.pkgs.haskellPackages.arbtt arbttCfg];
+      paths = [oldishpkgs.pkgs.haskellPackages.arbtt arbttCfg];
       buildInputs = [nixpkgs.makeWrapper];
       postBuild = ''
         wrapProgram $out/bin/arbtt-stats \
