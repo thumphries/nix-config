@@ -1,6 +1,6 @@
 { stdenv, symlinkJoin, writeShellScriptBin
 , arbtt, autolocker, autorandr, batwatch, compton, dunst, redshift, setxkbmap
-, xalt, xset, xsetroot, xsettingsd }:
+, xalt, xset, xsetroot, xsettingsd, lib }:
 let
   script = writeShellScriptBin "session" ''
     set -euo pipefail
@@ -37,6 +37,6 @@ in
 
     meta = {
       description = "X init script";
-      license = stdenv.lib.licenses.bsd3;
+      license = lib.licenses.bsd3;
     };
   }

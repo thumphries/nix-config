@@ -497,7 +497,7 @@ in
       # "zoomer unix"
       nixpkgs.pkgs.bat
       nixpkgs.pkgs.fd
-      nixpkgs.pkgs.exa
+      nixpkgs.pkgs.eza
       nixpkgs.pkgs.ripgrep
       nixpkgs.pkgs.sd
       nixpkgs.pkgs.du-dust
