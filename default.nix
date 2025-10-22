@@ -21,7 +21,7 @@ let
       fade-delta = 10;
     };
   };
-  xalt = xaltt oldpkgs;
+  xalt = xaltt oldishpkgs;
 
   nixpkgs = pinned "/nixpkgs.json";
 
@@ -205,7 +205,7 @@ let
         '';
       };
 
-  xaltt = pkgs: oldpkgs.pkgs.callPackage ./xalt {
+  xaltt = pkgs: nixpkgs.pkgs.callPackage ./xalt {
     nixpkgs = pkgs;
     themes = themes;
     config = {
