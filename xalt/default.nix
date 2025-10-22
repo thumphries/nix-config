@@ -137,6 +137,8 @@ let
       .taffy-box {
         border-radius: 0px;
         background-color: @bg;
+        padding-left: 20px;
+        padding-right: 20px;
       }
 
       /* Workspaces styling */
