@@ -1,6 +1,6 @@
-{ nixpkgs, stdenv, lib, callPackage, makeWrapper, symlinkJoin, writeTextFile, themes, config ? {} }:
+{ nixpkgs, stdenv, lib, callPackage, makeWrapper, symlinkJoin, writeTextFile, themes, config ? {}, compiler }:
 let
-  wm = callPackage ./wm { nixpkgs = nixpkgs; };
+  wm = callPackage ./wm { nixpkgs = nixpkgs; compiler = compiler; };
 
   defaultConfig = {
     general = {

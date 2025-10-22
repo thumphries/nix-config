@@ -21,7 +21,7 @@ let
       fade-delta = 10;
     };
   };
-  xalt = xaltt oldishpkgs;
+  xalt = xaltt nixpkgs;
 
   nixpkgs = pinned "/nixpkgs.json";
 
@@ -208,6 +208,7 @@ let
   xaltt = pkgs: nixpkgs.pkgs.callPackage ./xalt {
     nixpkgs = pkgs;
     themes = themes;
+    compiler = "ghc9102";
     config = {
       general = {
         terminal = ''${term}'';
